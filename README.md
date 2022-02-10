@@ -24,3 +24,21 @@ Platform to monitor patients at home or in the hospitals
 |------  |---------|-----| -----| -----|-----|
 | user_id  | int   | NO |  | NULL |foreign_key|
 | role_id | int | NO | | NULL|foreign_key |
+
+### Device table
+| Field  | Type   |Null | Key | Default | Extra |
+|------  |---------|-----| -----| -----|-----|
+| id  | int   | NO | PRI | NULL | auto_increment|
+| device | varchar(40)   | YES | | NULL| |
+|dateofpurchase|  date | YES | |NULL | |
+|MACaddress |   varchar(40)  |  YES| |NULL | |
+|user_id | int    | YES | |NULL | foreign_key|
+
+### Device Measurement table
+| Field  | Type   |Null | Key | Default | Extra |
+|------  |---------|-----| -----| -----|-----|
+| user_id  | int   | NO |  | NULL | foreign_key|
+| measurement_type | varchar(40)   | YES | | NULL| |
+| result | varchar(40)   | YES | | NULL| |
+|time | date| YES | | NULL | |
+
