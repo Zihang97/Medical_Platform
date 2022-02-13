@@ -2,7 +2,7 @@
 Platform to monitor patients at home or in the hospitals
 
 ## Branches
-All commits of phase1 are in branch `Phase1` (now it's merged to `main` branch but not deleted)
+All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted)
 
 
 ## Database Schema
