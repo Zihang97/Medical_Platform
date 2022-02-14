@@ -8,14 +8,14 @@ def DM(json_str, filename):
 	with open(filename, 'w') as f:
 		json.dump(measurement_dict, f)
 
-json_str = '''{
-				"patient": "Jack Lucas",
-				"temperature": "36",
-				"bloodpressure": "110",
-				"pulse": "100",
-				"oximeter": "90",
-				"weight": "65",
-				"height": "175",
-				"glucometer": "100"
-			}'''
-DM(json_str, "")
+# json_str = '''{
+# 				"patient": "Jack Lucas",
+# 				"temperature": "36",
+# 				"bloodpressure": "110",
+# 				"pulse": "100",
+# 				"oximeter": "90",
+# 				"weight": "65",
+# 				"height": "175",
+# 				"glucometer": "100"
+# 			}'''
+# DM(json_str, "")
