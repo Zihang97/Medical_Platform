@@ -18,4 +18,4 @@ def DM(json_str, filename):
 # 				"height": "175",
 # 				"glucometer": "100"
 # 			}'''
-# DM(json_str, "")
+# DM(json_str, "example.json")
