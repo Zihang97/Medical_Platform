@@ -3,7 +3,7 @@ from DeviceModule import *
 
 class TestDeviceModule:
 	def test_device_module_no_input(self):
-		with pytest.raises(AttributeError):
+		with pytest.raises(json.decoder.JSONDecodeError):
 			DM("", "example.json")
 
 
@@ -16,7 +16,7 @@ class TestDeviceModule:
 				"pulse": "100",
 				"oximeter": "90",
 				"weight": "65",
-				"height": "175",
+				"height": "175"
 			}'''
 			DM(json_str, "example.json")
 
@@ -48,4 +48,4 @@ class TestDeviceModule:
 				"height": "175",
 				"glucometer": "100"
 			}'''
-			DM(json_str)
+			DM(json_str, "")
