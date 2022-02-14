@@ -4,6 +4,31 @@ Platform to monitor patients at home or in the hospitals
 ## Branches
 All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted)
 
+## Input template for device module
+The input to device module has to be in json format and follow below template.
+```
+{
+  "patient": "Jack Lucas",
+  "temperature": "36",
+  "bloodpressure": "70/110",
+  "pulse": "100",
+  "oximeter": "90",
+  "weight": "65",
+  "height": "175",
+  "glucometer": "100"
+}
+```
+All fields are required. If any field missing, there will be an error raised.
+The units for measurement fields are listed following.
+| Field  | Unit   |
+|------  |---------|
+|temperature| ℃|
+|bloodpressure|mmHg|
+|pulse| bpm|
+|oximeter| %|
+|weight| kg|
+|height| cm|
+|glucometer| mg/dL|
 
 ## Database Schema
 ### User table
