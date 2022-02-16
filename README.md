@@ -8,7 +8,7 @@ All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` bra
 The input to device module has to be in json format and follow below template.
 ```
 {
-  "patient": "Jack Lucas",
+  "patientid": "001",
   "temperature": "36",
   "bloodpressure": "70/110",
   "pulse": "100",
