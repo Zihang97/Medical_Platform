@@ -79,3 +79,4 @@ class TestDeviceModule:
 				"glucometer": "100"
 			}'''
 			DM(json_str, "example.json")
+
