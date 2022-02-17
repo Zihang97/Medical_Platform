@@ -7,6 +7,8 @@ def DM(json_str, filename):
 			raise AttributeError(f"missing {item} data")
 	for k, v in measurement_dict.items():
 		if k != "patientid":
+			if not v:
+				raise AttributeError(f"missing {k} data")
 			try:
 				v = int(v)
 			except:
@@ -24,6 +26,9 @@ def DM(json_str, filename):
 # 				"oximeter": "90",
 # 				"weight": "65",
 # 				"height": "175",
-# 				"glucometer": "100"
+# 				"glucometer": "-100"
 # 			}'''
-# DM(json_str, "example.json")
+# try:
+# 	DM(json_str, "example.json")
+# except ValueError as e:
+# 	print(e.args[0])
