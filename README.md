@@ -2,12 +2,20 @@
 Platform to monitor patients at home or in the hospitals
 
 ## Branches
-All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted). <br>
+All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted).  
 `Phase1` mainly achieves a device module, which uses json string of device measurement data as input and stores all data into a json file. In addition, this device module can handle error conditions, checking if measurement fields are missing and if measurement results are numbers and positive.
 
-All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted). <br>
+All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted).  
 `Phase2` mainly achieves a restful system. Based on module in `Phase1`, it builds a website that allows users to enter device measurement results. Then the restful system will transfer the results into json string and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
 
+# Chat Module
+## User Story
+As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to patient.  
+As a patient, I also want to write a text or upload video/voice message to medical professional.  
+As a patient or MP, I want to search for keywords in messages and chats.  
+As a patient or MP, I want to check the history of chats and corresponding sending time (displaying chats).
+
+# Device Module
 ## Input template for device module
 The input to device module has to be in json format and follow below template.
 ```
@@ -34,7 +42,7 @@ The units for measurement fields are listed following.
 |height| cm|
 |glucometer| mg/dL|
 
-## Database Schema
+# Database Schema
 ### User table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
