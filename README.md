@@ -11,7 +11,7 @@ All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch 
 # Chat Module
 ## User Story
 As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to patient.  
-As a patient, I also want to write a text or upload video/voice message to medical professional.  
+As a patient, I want to write a text or upload video/voice message to medical professional.  
 As a patient or MP, I want to search for keywords in messages and chats.  
 As a patient or MP, I want to check the history of chats and corresponding sending time (displaying chats).
 
