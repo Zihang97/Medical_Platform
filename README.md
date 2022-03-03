@@ -8,6 +8,9 @@ All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` bra
 All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted).  
 `Phase2` mainly achieves a restful system. Based on module in `Phase1`, it builds a website that allows users to enter device measurement results. Then the restful system will transfer the results into json string and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
 
+All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch but not deleted).  
+`Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A unique chat table is built for every user (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.
+
 # Chat Module
 ## User Story
 As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to a patient.  
@@ -86,3 +89,11 @@ The units for measurement fields are listed following.
 | result | varchar(40)   | YES | | NULL| |
 |time | date| YES | | NULL | |
 
+### Chat table
+| Field  | Type   |Null | Key | Default | Extra |
+|------  |---------|-----| -----| -----|-----|
+| connecting_user  | varchar(40)   | NO|  | NULL | |
+| message_type | varchar(10)   |YES  | | NULL| |
+| content | text   | YES | | NULL| |
+| status | varchar(10)   | YES | | NULL| |
+|time | date| YES | | NULL | |
