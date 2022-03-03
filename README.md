@@ -89,3 +89,11 @@ The units for measurement fields are listed following.
 | result | varchar(40)   | YES | | NULL| |
 |time | date| YES | | NULL | |
 
+### Chat table
+| Field  | Type   |Null | Key | Default | Extra |
+|------  |---------|-----| -----| -----|-----|
+| connecting_user  | varchar(40)   | NO|  | NULL | |
+| message_type | varchar(10)   |YES  | | NULL| |
+| content | text   | YES | | NULL| |
+| status | varchar(10)   | YES | | NULL| |
+|time | date| YES | | NULL | |
