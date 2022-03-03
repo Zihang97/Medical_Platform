@@ -2,12 +2,29 @@
 Platform to monitor patients at home or in the hospitals
 
 ## Branches
-All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted). <br>
+All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted).  
 `Phase1` mainly achieves a device module, which uses json string of device measurement data as input and stores all data into a json file. In addition, this device module can handle error conditions, checking if measurement fields are missing and if measurement results are numbers and positive.
 
-All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted). <br>
+All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted).  
 `Phase2` mainly achieves a restful system. Based on module in `Phase1`, it builds a website that allows users to enter device measurement results. Then the restful system will transfer the results into json string and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
 
+All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch but not deleted).  
+`Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A unique chat table is built for every user (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.    
+Below are two screenshots of mainpage and chat display page till `Phase3`  
+<img src='Pictures/mainpage.PNG'>
+<img src='Pictures/display.PNG'>
+
+# Chat Module
+## User Story
+As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to a patient.  
+As a patient, I want to write a text or upload video/voice message to medical professional.  
+As a patient or MP, I want to search for keywords in messages and chats.  
+As a patient or MP, I want to check the history of chats and corresponding sending time (displaying chats).
+
+## Design
+I decide to use SQL database for chat module. Though columns in SQL are fixed compared to fields in document database, I'll use `TEXT` type to store messages. `TEXT` type can store anything entered as a string with no limit on length of string. Another reason for using SQL is that all other modules use SQL and user infomation are also stored in SQL database. It'll be quite complex to communicate between SQL and document if only chat module use document database.
+
+# Device Module
 ## Input template for device module
 The input to device module has to be in json format and follow below template.
 ```
@@ -34,7 +51,7 @@ The units for measurement fields are listed following.
 |height| cm|
 |glucometer| mg/dL|
 
-## Database Schema
+# Database Schema
 ### User table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
@@ -75,3 +92,11 @@ The units for measurement fields are listed following.
 | result | varchar(40)   | YES | | NULL| |
 |time | date| YES | | NULL | |
 
+### Chat table
+| Field  | Type   |Null | Key | Default | Extra |
+|------  |---------|-----| -----| -----|-----|
+| connecting_user  | varchar(40)   | NO|  | NULL | |
+| message_type | varchar(10)   |YES  | | NULL| |
+| content | text   | YES | | NULL| |
+| status | varchar(10)   | YES | | NULL| |
+|time | date| YES | | NULL | |

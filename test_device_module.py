@@ -1,5 +1,5 @@
 import pytest
-from DeviceModule import *
+from device_module import *
 
 class TestDeviceModule:
 	def test_device_module_no_input(self):
