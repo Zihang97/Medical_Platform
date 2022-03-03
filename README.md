@@ -2,15 +2,20 @@
 Platform to monitor patients at home or in the hospitals
 
 ## Branches
+### Phase 0&1
 All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` branch but not deleted).  
 `Phase1` mainly achieves a device module, which uses json string of device measurement data as input and stores all data into a json file. In addition, this device module can handle error conditions, checking if measurement fields are missing and if measurement results are numbers and positive.
 
+### Phase 2
 All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted).  
 `Phase2` mainly achieves a restful system. Based on module in `Phase1`, it builds a website that allows users to enter device measurement results. Then the restful system will transfer the results into json string and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
 
+### Phase 3
 All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch but not deleted).  
 `Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A unique chat table is built for every user (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.    
-Below are two screenshots of mainpage and chat display page till `Phase3`  
+
+Below are two screenshots of mainpage and chat display page till `Phase3`
+
 <img src='Pictures/mainpage.PNG'>
 <img src='Pictures/display.PNG'>
 
