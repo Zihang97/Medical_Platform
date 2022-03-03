@@ -1,7 +1,7 @@
 import pymysql
 from datetime import datetime
 
-password = "root"
+password = "*****"
 
 def current_time():
 	# get current time and transfer it into format accepted by mysql
