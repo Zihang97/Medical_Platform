@@ -9,7 +9,10 @@ All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch 
 `Phase2` mainly achieves a restful system. Based on module in `Phase1`, it builds a website that allows users to enter device measurement results. Then the restful system will transfer the results into json string and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
 
 All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch but not deleted).  
-`Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A unique chat table is built for every user (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.
+`Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A unique chat table is built for every user (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.    
+Below are two screenshots of mainpage and chat display page till `Phase3`  
+<img src='Pictures/mainpage.PNG'>
+<img src='Pictures/display.PNG'>
 
 # Chat Module
 ## User Story
