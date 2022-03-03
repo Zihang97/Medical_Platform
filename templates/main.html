@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Device Measurement</title>	    		
+</head>
+<body>
+	<div>
+		<h2>Please enter your device measurement results</h2>
+		<form action="{{url_for('main', name=name)}}" method="post">
+			Patient ID:
+			<input type="text" name="patientid" >
+			<br>
+			Temperature:
+			<input type="text" name="temperature" >
+			<br>
+			Blood Pressure:
+			<input type="text" name="bloodpressure" >
+			<br>
+			Pulse:
+			<input type="text" name="pulse" >
+			<br>
+			Oximeter:
+			<input type="text" name="oximeter" >
+			<br>
+			Weight:
+			<input type="text" name="weight" >
+			<br>
+			Height:
+			<input type="text" name="height" >
+			<br>
+			Glucometer:
+			<input type="text" name="glucometer" >
+			<br>
+			<input type="submit" value="submit"/>
+		</form> 
+	</div>
+
+	
+	<h2>Chat</h2>
+	<div>
+		<form action = "{{url_for('chat', name=name)}}" method = "post" enctype = "multipart/form-data">
+			<label for="recipient">Recipient: </label>
+			<input type = "text" id="recipient" name = "recipient" /><br>
+
+			<label for="video">Video Message: </label>
+			<input type = "file" id="video" name = "video" /><br>
+
+			<label for="voice">Voice Message: </label>
+			<input type = "file" id="voice" name = "voice" /><br>
+
+			<label for="text_message">Text Message: </label><br>
+			<textarea id="text_message" name="text_message" rows="4" cols="50" placeholder="Message Content..." type="text" class="form-control"  style="height:200px;"  ></textarea><br>
+
+			<input type = "submit" value = "Send" />
+		</form>
+	</div>
+
+	<h3>Display History Messages</h3>
+	<div>
+		<form action = "{{url_for('chat_display', name=name)}}" method = "post">
+			<label for="recipient">Recipient: </label>
+			<input type = "text" id="recipient" name = "recipient" /><br>
+			<input type = "submit" value = "Display" />
+		</form>
+	</div>
+</body>
+</html>
