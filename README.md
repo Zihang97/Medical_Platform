@@ -21,7 +21,7 @@ Below are several screenshots of my restful website till `Phase3`
 <img src='Pictures/index.PNG'> 
 
 #### Signup and Login Page
-<img src='Pictures/signup.PNG' width=49%> <img src='Pictures/login.PNG' width=50%>
+<img src='Pictures/signup.PNG' width=49%> <img src='Pictures/login.PNG' width=49%>
 
 #### Main Page
 <img src='Pictures/mainpage.PNG' width=49%> <img src='Pictures/mainpage2.PNG' width=49%>
