@@ -18,7 +18,7 @@ def index():
 def register():
 	if request.method =='POST':   
 		username = request.form['username']  
-		pwd = request.form['password']  
+		pwd = request.form['password']
 		repwd = request.form['repassword']
 		users = user.getusers()
 		if not username:
