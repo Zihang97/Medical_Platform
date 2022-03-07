@@ -1,6 +1,6 @@
 import pymysql
 
-password = "*****"
+password = "root"
 
 def insertuser(username, pwd, password=password):
 	db = pymysql.connect(host = "localhost", user = "root", password = password, database = "medical_platform")
