@@ -14,9 +14,19 @@ All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch 
 All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch but not deleted).  
 `Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A unique chat table is built for every user (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.    
 
-Below are two screenshots of mainpage and chat display page till `Phase3`
+Below are several screenshots of my restful website till `Phase3`
 
-<img src='Pictures/mainpage.PNG'>
+#### Index
+
+<img src='Pictures/index.PNG'> 
+
+#### Signup and Login Page
+<img src='Pictures/signup.PNG' width=49%> <img src='Pictures/login.PNG' width=50%>
+
+#### Main Page
+<img src='Pictures/mainpage.PNG' width=49%> <img src='Pictures/mainpage2.PNG' width=49%>
+
+#### Display Message Page
 <img src='Pictures/display.PNG'>
 
 # Chat Module
