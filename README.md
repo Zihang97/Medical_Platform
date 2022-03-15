@@ -24,9 +24,13 @@ Below are several screenshots of my restful website till `Phase3`
 <img src='Pictures/signup.PNG' width=49%> <img src='Pictures/login.PNG' width=49%>
 
 #### Main Page
+Upload large video/voice file may take some time, please be patient.
+
 <img src='Pictures/mainpage.PNG' width=49%> <img src='Pictures/mainpage2.PNG' width=49%>
 
 #### Display Message Page
+Messages received will be displayed at the left side of the screen while messages sent will be displayed at the right side.
+
 <img src='Pictures/display.PNG'>
 
 # Chat Module
