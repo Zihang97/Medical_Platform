@@ -33,6 +33,8 @@ Messages received will be displayed at the left side of the screen while message
 
 <img src='Pictures/display.PNG'>
 
+<img src='Pictures/display2.PNG'>
+
 # Chat Module
 ## User Story
 As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to a patient.  
