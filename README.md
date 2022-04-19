@@ -84,7 +84,7 @@ The units for measurement fields are listed following.
 |gender |   varchar(10)  |  YES| |NULL | |
 |dob |  varchar(40)    | YES | |NULL | |
 
-### Role Assgiment table
+### Role table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
 | user_id  | int   | NO |  | NULL |foreign_key|
