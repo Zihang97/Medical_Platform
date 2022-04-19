@@ -84,17 +84,11 @@ The units for measurement fields are listed following.
 |gender |   varchar(10)  |  YES| |NULL | |
 |dob |  varchar(40)    | YES | |NULL | |
 
-### Role table
-| Field  | Type   |Null | Key | Default | Extra |
-|------  |---------|-----| -----| -----|-----|
-| id  | int   | NO | PRI | NULL | auto_increment|
-| role | varchar(40)| YES | | NULL| |
-
 ### Role Assgiment table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
 | user_id  | int   | NO |  | NULL |foreign_key|
-| role_id | int | NO | | NULL|foreign_key |
+| role | varchar(40)| YES | | NULL| |
 
 ### Device table
 | Field  | Type   |Null | Key | Default | Extra |
