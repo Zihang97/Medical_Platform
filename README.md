@@ -110,7 +110,8 @@ The units for measurement fields are listed following.
 ### Chat table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| connecting_user  | varchar(40)   | NO|  | NULL | |
+| msg_from_user  | int   | NO |  | NULL |foreign_key|
+| msg_to_user  | int   | NO |  | NULL |foreign_key|
 | message_type | varchar(10)   |YES  | | NULL| |
 | content | text   | YES | | NULL| |
 | status | varchar(10)   | YES | | NULL| |
