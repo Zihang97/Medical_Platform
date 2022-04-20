@@ -8,13 +8,17 @@ All commits of phase 0 & 1 are in branch `Phase1` (now it's merged to `main` bra
 
 ### Phase 2
 All commits of phase 2 are in branch `Phase2` (now it's merged to `main` branch but not deleted).  
-`Phase2` mainly achieves a restful system. Based on module in `Phase1`, it builds a website that allows users to enter device measurement results. Then the restful system will transfer the results into json string and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
+`Phase2` mainly achieves a restful system. Based on module in `Phase1`, it makes it restful which allows users to send device measurement results in json format. Then the restful system will parse the results in json format and pass into device module, checking fields and data errors and storing them in json file. The restful system is also deployed to AWS.
 
 ### Phase 3
 All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch but not deleted).  
-`Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A chat table is built for users (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.    
+`Phase3` achieves chat module and corresponding restful api. In chat module it can send text/video/voice messages to other user. The text messages are directly stored in MySQL database while the addresses of video/voice files are stored in the database. A chat table is built for users (You can find its schema in [Database Schema](#database-schema)). As different users are needed in chat module, I also developed login/register functionality in restful api for the convenience of chat module testing. The user information and password are stored in user table.  
 
-Below are several screenshots of my restful website till `Phase3`
+### Phase 4 (Project 5)
+All commits of phase 4 are in branch `Phase4` (now it's merged to `main` branch but not deleted).  
+`Phase4` builds a web application based on restful apis developed in previous phases. It has a index page introducing the purpose of the website and links to login/signup pages. In login page, it supports using Google login so that users can use their Google accounts to log in the website. The website application also contains a main page supporting device and chat functionality, which calls restful device and chat module at the back side. I also builds a display page for users to display history messages with others.
+
+Below are several screenshots of my website application till `Phase4`
 
 #### Index
 
@@ -34,6 +38,12 @@ Messages received will be displayed at the left side of the screen while message
 <img src='Pictures/display.PNG'>
 
 <img src='Pictures/display2.PNG'>
+
+### Phase 5 (Final Project)
+This phase is completed together with teammate evezhang@bu.edu
+
+All commits of phase 5 are in branch `Phase5` (now it's merged to `main` branch but not deleted).  
+`Phase 5` builds other functionality like calendar module and voice transcriber module on the basis of `Phase 4`.
 
 # Chat Module
 ## User Story
