@@ -80,7 +80,6 @@ All fields are required. If any field is missing there will an error reported.
 ```
 Operation Status String (Succeed or Fail)
 ```
-
 #### PUT /device/update
 ##### Parameters
 ```
@@ -95,6 +94,7 @@ Operation Status String (Succeed or Fail)
   "glucometer": "100"
 }
 ```
+
 ##### Responses
 ```
 Operation Status String (Succeed or Fail)
