@@ -20,7 +20,7 @@ All commits of phase 4 are in branch `Phase4` (now it's merged to `main` branch 
 
 Below are several screenshots of my website application till `Phase4`
 
-#### Index
+#### Index Page
 
 <img src='Pictures/index.PNG'> 
 
