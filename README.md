@@ -1,5 +1,5 @@
 # Medical_Platform
-Platform to monitor patients at home or in the hospitals
+Platform to monitor patients at home or in the hospitals 
 
 ## Branches
 ### Phase 0&1
