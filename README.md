@@ -45,32 +45,7 @@ This phase is completed together with teammate evezhang@bu.edu
 All commits of phase 5 are in branch `Phase5` (now it's merged to `main` branch but not deleted).  
 `Phase 5` builds other functionality like calendar module and voice transcriber module on the basis of `Phase 4`.
 
-# Chat Module
-## User Story
-As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to a patient.  
-As a patient, I want to write a text or upload video/voice message to medical professional.  
-As a patient or MP, I want to search for keywords in messages and chats.  
-As a patient or MP, I want to check the history of chats and corresponding sending time (displaying chats).
-
-## Design
-I decide to use SQL database for chat module. Though columns in SQL are fixed compared to fields in document database, I'll use `TEXT` type to store messages. `TEXT` type can store anything entered as a string with no limit on length of string. Another reason for using SQL is that all other modules use SQL and user infomation are also stored in SQL database. It'll be quite complex to communicate between SQL and document if only chat module use document database.
-
 # Device Module
-## Input template for device module
-The input to device module has to be in json format and follow below template.
-```
-{
-  "patientid": "001",
-  "temperature": "36",
-  "bloodpressure": "70/110",
-  "pulse": "100",
-  "oximeter": "90",
-  "weight": "65",
-  "height": "175",
-  "glucometer": "100"
-}
-```
-All fields are required. If any field missing, there will be an error raised.
 The units for measurement fields are listed following.
 | Field  | Unit   |
 |------  |---------|
@@ -81,6 +56,121 @@ The units for measurement fields are listed following.
 |weight| kg|
 |height| cm|
 |glucometer| mg/dL|
+
+## Interfaces
+### POST 
+/device/create
+#### Parameters
+```
+{
+  "username": "Jack",
+  "temperature": "36",
+  "bloodpressure": "70/110",
+  "pulse": "100",
+  "oximeter": "90",
+  "weight": "65",
+  "height": "175",
+  "glucometer": "100"
+}
+```
+
+All fields are required. If any field is missing there will an error reported.
+
+`username` is also required because not only patient can enter measurement results, but also MP can input data for them.
+#### Responses
+```
+Operation Status String (Succeed or Fail)
+```
+
+### PUT 
+/device/update
+#### Parameters
+```
+{
+  "username": "Jack",
+  "temperature": "36",
+  "bloodpressure": "70/110",
+  "pulse": "100",
+  "oximeter": "90",
+  "weight": "65",
+  "height": "175",
+  "glucometer": "100"
+}
+```
+#### Responses
+```
+Operation Status String (Succeed or Fail)
+```
+
+### GET
+/device/{username}
+#### Parameters
+```
+username is required and already shown in the url. No need for input.
+```
+#### Responses
+```
+{
+  "username": "Jack",
+  "temperature": "36",
+  "bloodpressure": "70/110",
+  "pulse": "100",
+  "oximeter": "90",
+  "weight": "65",
+  "height": "175",
+  "glucometer": "100"
+}
+```
+
+
+# Chat Module
+## User Story
+As a medical professional (Nurse or Doctor), I want to write a text or upload video/voice message to a patient.  
+As a patient, I want to write a text or upload video/voice message to medical professional.  
+As a patient or MP, I want to search for keywords in messages and chats.  
+As a patient or MP, I want to check the history of chats and corresponding sending time (displaying chats).
+
+## Design
+I decide to use SQL database for chat module. Though columns in SQL are fixed compared to fields in document database, I'll use `TEXT` type to store messages. `TEXT` type can store anything entered as a string with no limit on length of string. Another reason for using SQL is that all other modules use SQL and user infomation are also stored in SQL database. It'll be quite complex to communicate between SQL and document if only chat module use document database.
+
+## Interfaces
+### POST 
+/chat/create
+#### Parameters
+```
+{
+  "sender": "Jack",
+  "recipient": "Mandy",
+  "type": "TEXT/VIDEO/VOICE",
+  "message": "<message_string>/<file_address>"
+  "time": "current_time"
+}
+```
+
+#### Responses
+```
+Operation Status String (Succeed or Fail)
+```
+
+### GET
+/chat/{username}
+#### Parameters
+```
+username is required and already shown in the url. No need for input.
+```
+#### Responses
+An array of messages
+```
+[
+  {
+    "sender": "Jack",
+    "recipient": "Mandy",
+    "type": "TEXT/VIDEO/VOICE",
+    "message": "<message_string>/<file_address>"
+    "time": "current_time"
+  }
+]
+```
 
 # Database Schema
 ### User table
