@@ -1,8 +1,9 @@
 from flask import Flask, escape, request, redirect, url_for, render_template
 import json
-import device_module
-import chat_module
-import user
+import Modules.device_module as device_module
+import Modules.chat_module as chat_module
+import Modules.user as user
+import Modules.role as role
 
 
 app = Flask(__name__)
@@ -30,8 +31,7 @@ def register():
 				return 'User Already Exist'
 			else:
 				user.insertuser(username, pwd)
-				chat_module.create_table(username)
-				# after register userinformation is saved in user list as a dictionary
+				role.add_role(username, 'None')
 				return redirect('/')
 				# user will be redirect to index page after register.
 		else:
@@ -46,9 +46,13 @@ def login():
 		username = request.form['username']
 		pwd = request.form['password']
 		users = user.getusers()
+		user_roles = role.get_roles()
 		if username in users:
 			if pwd == users[username]:
-				return redirect(url_for('main', name = username))
+				if 'Admin' in user_roles[username]:
+					return redirect(url_for('admin', name = username))
+				else:
+					return redirect(url_for('main', name = username))
 			else:
 				return render_template('login_return.html', text = 'Wrong Password!')
 		else:
@@ -85,6 +89,39 @@ def main(name):
 	return render_template('main.html', name = name)
 
 
+@app.route('/admin/<name>', methods=['GET','POST'])
+def admin(name):
+	if request.method =='POST':
+		user = request.form['user']
+		new_role = request.form['new_role']
+		user_roles = role.get_roles()
+		if new_role in user_roles[user]:
+			return 'Role Already Exists!'
+		role.add_role(user, new_role)
+	user_roles = role.get_roles()
+	return render_template('admin.html', name = name, user_roles = user_roles)
+
+
+@app.route('/admin/update/<name>/<user>/<ori_role>', methods=['GET','POST'])
+def admin_update_role(name, user, ori_role):
+	if request.method =='POST': 
+		new_role = request.form['new_role']
+		user_roles = role.get_roles()
+		if new_role in user_roles[user]:
+			return 'Role Already Exists!'
+		role.update_role(user, ori_role, new_role)
+	return redirect(url_for('admin', name = name))
+
+
+@app.route('/admin/delete/<name>/<user>/<ori_role>', methods=['GET','POST'])
+def admin_delete_role(name, user, ori_role):
+	if request.method =='POST': 
+		action = request.form['action']
+		if action == 'delete':
+			role.delete_role(user, ori_role)
+	return redirect(url_for('admin', name = name))
+
+
 @app.route('/chat/<name>', methods = ['GET', 'POST'])
 def chat(name):
 	if request.method == 'POST':
@@ -96,21 +133,18 @@ def chat(name):
 		text_message = request.form['text_message']
 		video = request.files['video']
 		voice = request.files['voice']
-		if text_message:
-			current_time = chat_module.current_time()
-			chat_module.store_message(name, recipient, 'TEXT', text_message, 'Sent', current_time)
-			chat_module.store_message(recipient, name, 'TEXT', text_message, 'Received', current_time)
-		elif video:
+		if video:
 			video.save('./static/' + video.filename)
 			current_time = chat_module.current_time()
-			chat_module.store_message(name, recipient, 'VIDEO', '../../static/' + video.filename, 'Sent', current_time)
-			chat_module.store_message(recipient, name, 'VIDEO', '../../static/' + video.filename, 'Received', current_time)
-		elif voice:
+			chat_module.store_message(name, recipient, 'VIDEO', '../../static/file_buffer/' + video.filename, current_time)
+		if voice:
 			voice.save('./static/' + voice.filename)
 			current_time = chat_module.current_time()
-			chat_module.store_message(name, recipient, 'VOICE', '../../static/' + voice.filename, 'Sent', current_time)
-			chat_module.store_message(recipient, name, 'VOICE', '../../static/' + voice.filename, 'Received', current_time)
-		else:
+			chat_module.store_message(name, recipient, 'VOICE', '../../static/file_buffer/' + voice.filename, current_time)
+		if text_message:
+			current_time = chat_module.current_time()
+			chat_module.store_message(name, recipient, 'TEXT', text_message, current_time)
+		if not (text_message or video or voice):
 			return "Message can't be empty!"
 	return redirect(url_for('main', name = name))
 

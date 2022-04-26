@@ -61,23 +61,23 @@
             <div class="row">
             <div class="form-container col-md-12">
                 {% for row in results %}
-                    {% if row[3] == 'Sent' %}
+                    {% if row[0] == name %}
                         <p class="sent">{{row[4]}}</p>
-                        {% if row[1] == 'TEXT' %}
-                            <p class="sent" style="color:red">{{row[2]}}</p>
-                        {% elif row[1] == 'VIDEO' %}
-                            <video class="sent" src="{{row[2]}}" controls width=50%></video>
+                        {% if row[2] == 'TEXT' %}
+                            <p class="sent" style="color:red">{{row[3]}}</p>
+                        {% elif row[2] == 'VIDEO' %}
+                            <video class="sent" src="{{row[3]}}" controls width=50%></video>
                         {% else %}
-                            <audio class="sent" src="{{row[2]}}" controls></audio>
+                            <audio class="sent" src="{{row[3]}}" controls></audio>
                         {% endif %}
                     {% else %}
                         <p class="received">{{row[4]}}</p>
-                        {% if row[1] == 'TEXT' %}
-                            <p class="received" style="color:red">{{row[2]}}</p>
-                        {% elif row[1] == 'VIDEO' %}
-                            <video class="received" src="{{row[2]}}" controls width=50%></video>
+                        {% if row[2] == 'TEXT' %}
+                            <p class="received" style="color:red">{{row[3]}}</p>
+                        {% elif row[2] == 'VIDEO' %}
+                            <video class="received" src="{{row[3]}}" controls width=50%></video>
                         {% else %}
-                            <audio class="received" src="{{row[2]}}" controls></audio>
+                            <audio class="received" src="{{row[3]}}" controls></audio>
                         {% endif %}
                     {% endif %}
                     <hr>
