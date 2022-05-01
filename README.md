@@ -171,7 +171,7 @@ An array of messages
 In my table I set username as primary key intead of user_id (It's easier for me to deal with later design). So every user has to enter a unique username when registered, even though they may have the same names.
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-|name| varchar(40)   | NO | PRI| | |
+|username| varchar(40)   | NO | PRI| | |
 |password |   varchar(40)     | NO| || |
 |email|  varchar(40)  | YES | |NULL | |
 |age |  varchar(10)    |  YES| | NULL| |
@@ -184,7 +184,7 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 ### Role table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| user  | varchar(40)   | NO |  | NULL |foreign_key|
+| username  | varchar(40)   | NO |  | NULL |foreign_key|
 | role | varchar(40)| YES | | NULL| |
 
 ### Device Measurement table
@@ -193,14 +193,14 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 | patient | varchar(40)   | NO |  | NULL | foreign_key|
 | measurement_type | varchar(40)   | YES | | NULL| |
 | result | varchar(40)   | YES | | NULL| |
-|time |varchar(40)| YES | | NULL | |
+|time |datetime| YES | | NULL | |
 
 ### Chat table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| msg_from_user  | varchar(40)   | NO |  | NULL |foreign_key|
-| msg_to_user  | varchar(40)   | NO |  | NULL |foreign_key|
+| sender  | varchar(40)   | NO |  | NULL |foreign_key|
+| recipient  | varchar(40)   | NO |  | NULL |foreign_key|
 | message_type | varchar(10)   |NO  | | NULL| |
 | content | text   | YES | | NULL| |
 | status | varchar(10)   | YES | | NULL| |
-|time | varchar(40)| YES | | NULL | |
+|time | datetime| YES | | NULL | |
