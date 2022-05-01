@@ -170,43 +170,36 @@ An array of messages
 ### User table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| id  | int   | NO | PRI | NULL | auto_increment|
-|name| varchar(40)   | YES | | NULL| |
+|name| varchar(40)   | NO | PRI| | |
+|password |   varchar(40)     | NO| || |
 |email|  varchar(40)  | YES | |NULL | |
-|address |   varchar(80)     | YES| | NULL| |
-|age |  int    |  YES| | NULL| |
+|age |  varchar(10)    |  YES| | NULL| |
 |gender |   varchar(10)  |  YES| |NULL | |
 |dob |  varchar(40)    | YES | |NULL | |
+|doctor |  varchar(40)    | YES | |NULL | foreign_key|
+|nurse |  varchar(40)    | YES | |NULL | foreign_key|
+
 
 ### Role table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| user_id  | int   | NO |  | NULL |foreign_key|
+| user  | varchar(40)   | NO |  | NULL |foreign_key|
 | role | varchar(40)| YES | | NULL| |
-
-### Device table
-| Field  | Type   |Null | Key | Default | Extra |
-|------  |---------|-----| -----| -----|-----|
-| id  | int   | NO | PRI | NULL | auto_increment|
-| device | varchar(40)   | YES | | NULL| |
-|dateofpurchase|  date | YES | |NULL | |
-|MACaddress |   varchar(40)  |  YES| |NULL | |
-|user_id | int    | YES | |NULL | foreign_key|
 
 ### Device Measurement table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| user_id  | int   | NO |  | NULL | foreign_key|
+| patient | varchar(40)   | NO |  | NULL | foreign_key|
 | measurement_type | varchar(40)   | YES | | NULL| |
 | result | varchar(40)   | YES | | NULL| |
-|time | date| YES | | NULL | |
+|time |varchar(40)| YES | | NULL | |
 
 ### Chat table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| msg_from_user  | int   | NO |  | NULL |foreign_key|
-| msg_to_user  | int   | NO |  | NULL |foreign_key|
-| message_type | varchar(10)   |YES  | | NULL| |
+| msg_from_user  | varchar(40)   | NO |  | NULL |foreign_key|
+| msg_to_user  | varchar(40)   | NO |  | NULL |foreign_key|
+| message_type | varchar(10)   |NO  | | NULL| |
 | content | text   | YES | | NULL| |
 | status | varchar(10)   | YES | | NULL| |
-|time | date| YES | | NULL | |
+|time | varchar(40)| YES | | NULL | |
