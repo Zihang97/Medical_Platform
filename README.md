@@ -168,6 +168,7 @@ An array of messages
 
 # Database Schema
 ### User table
+In my table I set username as primary key intead of user_id. (It's easier for me to deal with later design) So every user has to enter a unique username when registered, even though they may have the same names.
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
 |name| varchar(40)   | NO | PRI| | |
