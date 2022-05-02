@@ -1,6 +1,65 @@
+import pymysql
 import json
 
-def DM(json_str, filename):
+password = "root"
+
+
+def create_table(password=password):
+	# create a table for each user storing all messages sent and received
+	db = pymysql.connect(host="localhost", user="root", password=password, database="medical_platform")
+
+	cursor = db.cursor()
+
+	sql = 'drop table if exists device'
+	cursor.execute(sql)
+
+	sql = 'create table device (username VARCHAR(40), type VARCHAR(20), measurement VARCHAR(20))'
+	# type has to be one of Temperature, BloodPressure, Pulse, Oximeter, Weight, Height, Glucometer
+	cursor.execute(sql)
+
+	db.commit()
+	db.close()
+
+
+def insert_device(username, type, measurement, password=password):
+	db = pymysql.connect(host="localhost", user="root", password=password, database="medical_platform")
+
+	cursor = db.cursor()
+
+	sql = 'insert into device (username, type, measurement) values(%s, %s, %s)'
+	cursor.execute(sql, (username, type, measurement))
+
+	db.commit()
+	db.close()
+
+
+def delete_device(username, type, password=password):
+	db = pymysql.connect(host="localhost", user="root", password=password, database="medical_platform")
+
+	cursor = db.cursor()
+
+	sql = 'delete from device where username=%s and type=%s'
+	cursor.execute(sql, (username, type))
+
+	db.commit()
+	db.close()
+
+
+def get_device(username, password=password):
+	db = pymysql.connect(host="localhost", user="root", password=password, database="medical_platform")
+
+	cursor = db.cursor()
+
+	sql = 'select * from device where username=%s'
+	cursor.execute(sql, (username))
+	results = cursor.fetchall()
+
+	db.close()
+
+	return results
+
+
+def dm_json_check(json_str):
 	measurement_dict = json.loads(json_str)
 	for item in ["patientid", "temperature", "bloodpressure", "pulse", "oximeter", "weight", "height", "glucometer"]:
 		if item not in measurement_dict:
@@ -20,21 +79,3 @@ def DM(json_str, filename):
 				raise ValueError("measurement data should be positive")
 	if cnt == 0:
 		raise ValueError("measurement data can't be empty")
-
-	with open(filename, 'w') as f:
-		json.dump(measurement_dict, f)
-
-# json_str = '''{
-# 				"patientid": "001",
-# 				"temperature": "36",
-# 				"bloodpressure": "110",
-# 				"pulse": "100",
-# 				"oximeter": "90",
-# 				"weight": "65",
-# 				"height": "175",
-# 				"glucometer": "-100"
-# 			}'''
-# try:
-# 	DM(json_str, "example.json")
-# except ValueError as e:
-# 	print(e.args[0])
