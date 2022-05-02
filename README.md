@@ -177,8 +177,6 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 |age |  varchar(10)    |  YES| | NULL| |
 |gender |   varchar(10)  |  YES| |NULL | |
 |dob |  varchar(40)    | YES | |NULL | |
-|doctor |  varchar(40)    | YES | |NULL | foreign_key|
-|nurse |  varchar(40)    | YES | |NULL | foreign_key|
 
 
 ### Role table
@@ -186,6 +184,15 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 |------  |---------|-----| -----| -----|-----|
 | username  | varchar(40)   | NO |  | NULL |foreign_key|
 | role | varchar(40)| YES | | NULL| |
+
+
+### Medical Professional Assignment table
+| Field  | Type   |Null | Key | Default | Extra |
+|------  |---------|-----| -----| -----|-----|
+| patient | varchar(40)   | NO |  | NULL | foreign_key|
+| type | varchar(40)   | YES | | NULL| |
+| mp | varchar(40)   | YES | | NULL| foreign_key|
+
 
 ### Device Measurement table
 | Field  | Type   |Null | Key | Default | Extra |
