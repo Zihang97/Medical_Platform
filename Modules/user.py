@@ -86,3 +86,4 @@ def get_all_users(password=password):
 	results = cursor.fetchall()
 
 	return results
+

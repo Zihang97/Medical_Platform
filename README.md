@@ -168,45 +168,46 @@ An array of messages
 
 # Database Schema
 ### User table
+In my table I set username as primary key intead of user_id (It's easier for me to deal with later design). So every user has to enter a unique username when registered, even though they may have the same names.
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| id  | int   | NO | PRI | NULL | auto_increment|
-|name| varchar(40)   | YES | | NULL| |
+|username| varchar(40)   | NO | PRI| | |
+|password |   varchar(40)     | NO| || |
 |email|  varchar(40)  | YES | |NULL | |
-|address |   varchar(80)     | YES| | NULL| |
-|age |  int    |  YES| | NULL| |
+|age |  varchar(10)    |  YES| | NULL| |
 |gender |   varchar(10)  |  YES| |NULL | |
 |dob |  varchar(40)    | YES | |NULL | |
+
 
 ### Role table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| user_id  | int   | NO |  | NULL |foreign_key|
+| username  | varchar(40)   | NO |  | NULL |foreign_key|
 | role | varchar(40)| YES | | NULL| |
 
-### Device table
+
+### Medical Professional Assignment table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| id  | int   | NO | PRI | NULL | auto_increment|
-| device | varchar(40)   | YES | | NULL| |
-|dateofpurchase|  date | YES | |NULL | |
-|MACaddress |   varchar(40)  |  YES| |NULL | |
-|user_id | int    | YES | |NULL | foreign_key|
+| patient | varchar(40)   | NO |  | NULL | foreign_key|
+| type | varchar(40)   | YES | | NULL| |
+| mp | varchar(40)   | YES | | NULL| foreign_key|
+
 
 ### Device Measurement table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| user_id  | int   | NO |  | NULL | foreign_key|
+| patient | varchar(40)   | NO |  | NULL | foreign_key|
 | measurement_type | varchar(40)   | YES | | NULL| |
 | result | varchar(40)   | YES | | NULL| |
-|time | date| YES | | NULL | |
+|time |datetime| YES | | NULL | |
 
 ### Chat table
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
-| msg_from_user  | int   | NO |  | NULL |foreign_key|
-| msg_to_user  | int   | NO |  | NULL |foreign_key|
-| message_type | varchar(10)   |YES  | | NULL| |
+| sender  | varchar(40)   | NO |  | NULL |foreign_key|
+| recipient  | varchar(40)   | NO |  | NULL |foreign_key|
+| message_type | varchar(10)   |NO  | | NULL| |
 | content | text   | YES | | NULL| |
 | status | varchar(10)   | YES | | NULL| |
-|time | date| YES | | NULL | |
+|time | datetime| YES | | NULL | |
