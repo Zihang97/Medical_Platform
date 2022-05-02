@@ -38,32 +38,44 @@
             <div class="form-box col-md-offset-4 col-sm-offset-0 xs-offset-0 col-xs-3 col-md-4">
             <!-- login框外面的白色方框的内容即login什么什么的-->
             <div class="form-box-inner">
-                            <h2 class="title text-center">Sign up now</h2>
-                            <p class="intro text-center">It only takes 3 minutes!</p>
-                            <div class="row">
-                                <div class="form-container col-xs-15 col-md-11">
-                                    <form action="{{url_for('register')}}" method="post">
-                                        <div class="form-group email">
-                                            <label class="sr-only" for="signup-username"></label>
-                                            <input id="signup-username" name="username" type="text" class="form-control" placeholder="Username">
-                                        </div><!--//form-group-->
-                                        <div class="form-group password">
-                                            <label class="sr-only" for="signup-password"></label>
-                                            <input id="signup-password" name="password" type="password" class="form-control " placeholder="Password">
-                                        </div><!--//form-group-->
+            <h2 class="title text-center">Sign up now</h2>
+            <p class="intro text-center">It only takes 3 minutes!</p>
+            <div class="row">
+                <div class="form-container col-xs-15 col-md-11">
+                    <form action="{{url_for('register')}}" method="post">
+                        <div class="form-group email">
+                            <label class="sr-only" for="signup-username"></label>
+                            <input id="signup-username" name="username" type="text" class="form-control" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="signup-email"></label>
+                            <input id="signup-email" name="email" type="text" class="form-control info" placeholder="Email">
+                            <label class="sr-only" for="signup-age"></label>
+                            <input id="signup-age" name="age" type="text" class="form-control info" placeholder="Age">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="signup-gender"></label>
+                            <input id="signup-gender" name="gender" type="text" class="form-control info" placeholder="Gender">
+                            <label class="sr-only" for="signup-dob"></label>
+                            <input id="signup-dob" name="dob" type="text" class="form-control info" placeholder="Date of Birth">
+                        </div>
+                        <div class="form-group password">
+                            <label class="sr-only" for="signup-password"></label>
+                            <input id="signup-password" name="password" type="password" class="form-control " placeholder="Password">
+                        </div>
 
-                                        <div class="form-group password">
-                                            <label class="sr-only" for="signup-repassword"></label>
-                                            <input id="signup-repassword" name="repassword" type="password" class="form-control " placeholder="Repassword">
-                                        </div><!--//form-group-->
+                        <div class="form-group password">
+                            <label class="sr-only" for="signup-repassword"></label>
+                            <input id="signup-repassword" name="repassword" type="password" class="form-control " placeholder="Repassword">
+                        </div>
 
-                                        <button type="submit" class="btn btn-block btn-cta-primary" value="Submit">Sign up</button>
-                                        <p class="note">By signing up, you agree to our terms of services and privacy policy.</p>
-                                        <p class="lead">Already have an account? <a class="login-link" id="login-link" href="{{url_for('login')}}">Log in</a></p>
-                                    </form>
-                                </div><!--//form-container-->
+                        <button type="submit" class="btn btn-block btn-cta-primary" value="Submit">Sign up</button>
+                        <p class="note">By signing up, you agree to our terms of services and privacy policy.</p>
+                        <p class="lead">Already have an account? <a class="login-link" id="login-link" href="{{url_for('login')}}">Log in</a></p>
+                    </form>
+                </div>
 
-                            </div><!--//row-->
+            </div><!--//row-->
             </div><!--//form-box-inner-->
             </div><!--//form-box-->
             </div><!--//row-->

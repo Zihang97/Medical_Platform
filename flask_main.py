@@ -1,12 +1,14 @@
-from flask import Flask, escape, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template
 import json
 import Modules.device_module as device_module
 import Modules.chat_module as chat_module
 import Modules.user as user
 import Modules.role as role
+import Modules.mp_assignment as mp_assignment
 
 
 app = Flask(__name__)
+
 
 # this is the index page which everyone can visit. There are login and register options provided in this page
 @app.route('/', methods=['GET','POST'])
@@ -15,13 +17,17 @@ def index():
 
 
 # register page
-@app.route('/register', methods=['GET','POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-	if request.method =='POST':   
-		username = request.form['username']  
+	if request.method == 'POST':
+		username = request.form['username']
+		email = request.form['email']
+		age = request.form['age']
+		gender = request.form['gender']
+		dob = request.form['dob']
 		pwd = request.form['password']
 		repwd = request.form['repassword']
-		users = user.getusers()
+		users = user.get_users_password()
 		if not username:
 			return 'Empty Username!'
 		if not pwd:
@@ -30,44 +36,75 @@ def register():
 			if username in users:
 				return 'User Already Exist'
 			else:
-				user.insertuser(username, pwd)
+				user.insert_user(username, pwd, email, age, gender, dob)
 				role.add_role(username, 'None')
-				return redirect('/')
+				return redirect(url_for('login'))
 				# user will be redirect to index page after register.
 		else:
-		  return('password should be identical to repassword')
+			return 'password should be identical to repassword'
 	return render_template('register.html')
 
 
 # login page
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-	if request.method =='POST': 
+	if request.method == 'POST':
 		username = request.form['username']
 		pwd = request.form['password']
-		users = user.getusers()
-		user_roles = role.get_roles()
+		users = user.get_users_password()
 		if username in users:
 			if pwd == users[username]:
-				if 'Admin' in user_roles[username]:
-					return redirect(url_for('admin', name = username))
-				else:
-					return redirect(url_for('main', name = username))
+				return redirect(url_for('jump', name=username))
 			else:
-				return render_template('login_return.html', text = 'Wrong Password!')
+				return render_template('login_return.html', text='Wrong Password!')
 		else:
-			return render_template('login_return.html', text = 'Username Not Found, please register first!')
+			return render_template('login_return.html', text='Username Not Found, please register first!')
 	return render_template('login.html')
-    # check if we have user in our list, if we do, user log in successfully.
-    # else, user either does not register or enters wrong password
+	# check if we have user in our list, if we do, user log in successfully.
+	# else, user either does not register or enters wrong password
 
 
+@app.route('/jump/<name>', methods=['GET', 'POST'])
+def jump(name):
+	user_roles = role.get_roles()
+	if 'Admin' in user_roles[name]:
+		return redirect(url_for('admin', name=name))
+	elif 'Patient' in user_roles[name]:
+		return redirect(url_for('patient', name=name))
+	else:
+		return redirect(url_for('mp', name=name))
 
-# this is the main page for user logging in successfully
-@app.route('/main/<name>', methods=['GET','POST'])
-def main(name):
-	if request.method =='POST': 
-		patientid = request.form['patientid']
+
+# this is the main page for patient logging in successfully
+@app.route('/patient/<name>', methods=['GET', 'POST'])
+def patient(name):
+	doctors, nurses = mp_assignment.get_one_assignment(name)
+	return render_template('patient.html', name=name, doctors=' '.join(doctors), nurses=' '.join(nurses))
+
+
+# this is the main page for MP logging in successfully
+@app.route('/MP/<name>', methods=['GET', 'POST'])
+def mp(name):
+	patients = mp_assignment.get_patients(name)
+	patients_results = []
+	for patient in patients:
+		temp_dic = {'PatientName': patient, 'Temperature': 'None',
+					'BloodPressure': 'None', 'Pulse': 'None',
+					'Oximeter': 'None', 'Weight': 'None',
+					'Height': 'None', 'Glucometer': 'None'}
+		results = device_module.get_device(patient)
+		for result in results:
+			temp_dic[result[1]] = result[2]
+		patients_results.append(temp_dic)
+
+	return render_template('MP.html', name = name, patients_results=patients_results)
+
+
+# this is the main page for MP logging in successfully
+@app.route('/device/<name>', methods=['GET', 'POST'])
+def device(name):
+	if request.method == 'POST':
+		patientname = request.form['patientname']
 		temperature = request.form['temperature']
 		bloodpressure = request.form['bloodpressure']
 		pulse = request.form['pulse']
@@ -75,58 +112,102 @@ def main(name):
 		weight = request.form['weight']
 		height = request.form['height']
 		glucometer= request.form['glucometer']
-		device_dict = {'patientid': patientid, 'temperature': temperature,
-						'bloodpressure': bloodpressure, 'pulse': pulse,
-						'oximeter': oximeter, 'weight': weight,
-						'height': height, 'glucometer': glucometer}
-		device_json = json.dumps(device_dict)
-		try:
-			device_module.DM(device_json, 'example.json')
-		except ValueError as e:
-			return e.args[0]
-		except AttributeError as e:
-			return e.args[0]
-	return render_template('main.html', name = name)
+		device_dict = {'Temperature': temperature, 'BloodPressure': bloodpressure,
+					   'Pulse': pulse, 'Oximeter': oximeter, 'Weight': weight,
+						'Height': height, 'Glucometer': glucometer}
+		cnt = 0
+		if not patientname:
+			return "Patient name can't be empty!"
+		for type, measurement in device_dict.items():
+			if measurement:
+				cnt = 1
+				try:
+					temp = float(measurement)
+				except:
+					return "Measurement data should be numbers!"
+				if temp < 0:
+					return "Measurement data should be positive!"
+				device_module.delete_device(patientname, type)
+				device_module.insert_device(patientname, type, measurement)
+		if cnt == 0:
+			return "Measurement data can't be empty!"
+	return render_template('device.html', name=name)
 
-
-@app.route('/admin/<name>', methods=['GET','POST'])
+# this is the main page for admin logging in successfully
+@app.route('/admin/<name>', methods=['GET', 'POST'])
 def admin(name):
-	if request.method =='POST':
-		user = request.form['user']
+	if request.method == 'POST':
+		username = request.form['username']
 		new_role = request.form['new_role']
 		user_roles = role.get_roles()
-		if new_role in user_roles[user]:
+		users = user.get_users_password()
+		if username not in users:
+			return 'User Not Exist!'
+		if username in user_roles and new_role in user_roles[username]:
 			return 'Role Already Exists!'
-		role.add_role(user, new_role)
+		role.add_role(username, new_role)
 	user_roles = role.get_roles()
-	return render_template('admin.html', name = name, user_roles = user_roles)
+	patients = set()
+	patients_assigned = set()
+	for username, roles in user_roles.items():
+		if 'Patient' in roles:
+			patients.add(username)
+	assign_results = mp_assignment.get_all_assignments()
+	for assign_result in assign_results:
+		patients_assigned.add(assign_result[0])
+	patients_unassigned = patients - patients_assigned
+	return render_template('admin.html', name=name, user_roles=user_roles,
+						   assign_results=assign_results, patients_unassigned=patients_unassigned)
 
 
-@app.route('/admin/update/<name>/<user>/<ori_role>', methods=['GET','POST'])
-def admin_update_role(name, user, ori_role):
-	if request.method =='POST': 
+@app.route('/admin/update/<name>/<username>/<ori_role>', methods=['POST'])
+def admin_update_role(name, username, ori_role):
+	if request.method == 'POST':
 		new_role = request.form['new_role']
 		user_roles = role.get_roles()
-		if new_role in user_roles[user]:
+		if new_role in user_roles[username]:
 			return 'Role Already Exists!'
-		role.update_role(user, ori_role, new_role)
-	return redirect(url_for('admin', name = name))
+		role.update_role(username, ori_role, new_role)
+		return redirect(url_for('admin', name=name))
 
 
-@app.route('/admin/delete/<name>/<user>/<ori_role>', methods=['GET','POST'])
-def admin_delete_role(name, user, ori_role):
-	if request.method =='POST': 
+@app.route('/admin/delete/<name>/<username>/<ori_role>', methods=['POST'])
+def admin_delete_role(name, username, ori_role):
+	if request.method == 'POST':
 		action = request.form['action']
 		if action == 'delete':
-			role.delete_role(user, ori_role)
-	return redirect(url_for('admin', name = name))
+			role.delete_role(username, ori_role)
+		return redirect(url_for('admin', name=name))
+
+
+@app.route('/admin/add/<name>', methods=['POST'])
+def admin_add_assignment(name):
+	if request.method == 'POST':
+		patient_name = request.form['patient_name']
+		type = request.form['type']
+		mp_name = request.form['mp_name']
+		users = user.get_users_password()
+		if patient_name not in users:
+			return 'Patient Not Exist!'
+		if mp_name not in users:
+			return 'MP Not Exist!'
+		mp_assignment.insert_assignment(patient_name, type, mp_name)
+		return redirect(url_for('admin', name=name))
+
+@app.route('/admin/delete/<name>/<username>/<type>/<mp_name>', methods=['POST'])
+def admin_delete_assignment(name, username, type, mp_name):
+	if request.method == 'POST':
+		action = request.form['action']
+		if action == 'delete':
+			mp_assignment.delete_assignment(username, type, mp_name)
+		return redirect(url_for('admin', name=name))
 
 
 @app.route('/chat/<name>', methods = ['GET', 'POST'])
 def chat(name):
 	if request.method == 'POST':
 		recipient = request.form['recipient']
-		users = user.getusers()
+		users = user.get_users_password()
 		if recipient not in users:
 			return 'Recipient Not Exist!'
 
@@ -149,13 +230,13 @@ def chat(name):
 	return redirect(url_for('main', name = name))
 
 
-@app.route('/chat/display/<name>', methods = ['GET', 'POST'])
+@app.route('/chat/display/<name>', methods=['GET', 'POST'])
 def chat_display(name):
 	if request.method == 'POST':
 		recipient = request.form['recipient']
 		results = chat_module.get_messages(name, recipient)
+		return render_template('display.html', name=name, results=results)
 
-	return render_template('display.html', name=name, results=results)
 
 if __name__ == '__main__':
 	app.run()

@@ -13,7 +13,7 @@ def current_time():
 def create_table(password = password):
 	# create a table for each user storing all messages sent and received
 	db = pymysql.connect(host = "localhost", user = "root", password = password, database = "medical_platform")
-	 
+
 	cursor = db.cursor()
 
 	sql = 'drop table if exists chat'
@@ -23,7 +23,7 @@ def create_table(password = password):
 	# message_type has to be one of TEXT, VIDEO and VOICE
 	cursor.execute(sql)
 
-	db.commit() 
+	db.commit()
 	db.close()
 
 
@@ -51,6 +51,5 @@ def get_messages(sender, recipient, password = password):
 	db.close()
 
 	return results
-
 
 

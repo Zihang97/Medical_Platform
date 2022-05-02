@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>Admin Main Page</title>
+    <title>Administrator Main Page</title>
 
     <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.css">
@@ -22,17 +22,9 @@
                 <a href="{{url_for('index')}}"><span class="logo-icon"></span><span class="text">MEDICAL PLATFORM</span></a>
             </h1>
             <nav class="main-nav navbar-right" role="navigation">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a href="{{url_for('main', name=name)}}">{{ name }}</a></li>
+                        <li class="nav-item"><a href="{{url_for('admin', name=name)}}">{{ name }}</a></li>
                         <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{{url_for('index')}}">Sign out</a></li>
                     </ul>
                 </div>
@@ -51,14 +43,15 @@
         <div class="form-box-inner">
             <div class="row">
             <div class="form-container col-md-12">
+            <h1>Administrator Main Page</h1>
             <div>
                 <h2>Roles Management</h2>
                 <table>
                     <tr>
                         <th>User</th>
                         <th>Role</th>
-                        <th>Update</th>
-                        <th>Delete</th>
+                        <th>Update Role</th>
+                        <th>Delete Role</th>
                     </tr>
                     {%for user, roles in user_roles.items()%}
                         {%for role in roles%}
@@ -66,7 +59,7 @@
                                 <th>{{user}}</th>
                                 <th>{{role}}</th>
                                 <th>
-                                    <form action="{{url_for('admin_update_role', name=name, user=user, ori_role=role)}}" method="post">
+                                    <form action="{{url_for('admin_update_role', name=name, username=user, ori_role=role)}}" method="post">
                                         <select name="new_role">
                                             <option value="None">None</option>
                                             <option value="Patient">Patient</option>
@@ -75,11 +68,11 @@
                                             <option value="Admin">Admin</option>
                                             <option value="Family Member">Family Member</option>
                                         </select>
-                                        <input type = "submit" value = "Submit">
+                                        <input type = "submit" value = "Update">
                                     </form>
                                 </th>
                                 <th>
-                                    <form action="{{url_for('admin_delete_role', name=name, user=user, ori_role=role)}}" method="post">
+                                    <form action="{{url_for('admin_delete_role', name=name, username=user, ori_role=role)}}" method="post">
                                         <button name="action" type="submit" value='delete'>Delete</button>
                                     </form>
                                 </th>
@@ -89,7 +82,7 @@
                 </table>
                 <h3>Add Role</h3>
                 <form action = "{{url_for('admin', name=name)}}" method = "post">
-                    <input class="mainform-control" type = "text" name = "user" placeholder="Username">
+                    <input class="mainform-control" type="text" name="username" placeholder="Username">
                     <select name="new_role">
                         <option value="None">None</option>
                         <option value="Patient">Patient</option>
@@ -98,7 +91,50 @@
                         <option value="Admin">Admin</option>
                         <option value="Family Member">Family Member</option>
                     </select>
-                    <input type = "submit" value = "Submit">
+                    <input type = "submit" value = "Add">
+                </form>
+            </div>
+            <hr>
+            <div>
+                <h2>Medical Professional Assignment</h2>
+                <table>
+                    <tr>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>MP name</th>
+                        <th>Delete Assignment</th>
+                    </tr>
+                    {%for result in assign_results%}
+                        <tr>
+                            <th>{{result[0]}}</th>
+                            <th>{{result[1]}}</th>
+                            <th>{{result[2]}}</th>
+                            <th>
+                                <form action="{{url_for('admin_delete_assignment', name=name, username=result[0], type=result[1], mp_name=result[2])}}" method="post">
+                                    <button name="action" type="submit" value='delete'>Delete</button>
+                                </form>
+                            </th>
+                        </tr>
+                    {%endfor%}
+                    {%for patient in patients_unassigned%}
+                        <tr>
+                            <th>{{patient}}</th>
+                            <th>None</th>
+                            <th>None</th>
+                            <th></th>
+                        </tr>
+                    {%endfor%}
+                </table>
+                <h3>Add Assignment</h3>
+                <form action = "{{url_for('admin_add_assignment', name=name)}}" method = "post">
+                    <input class="mainform-control" type="text" name="patient_name" placeholder="Patient Name">
+                    <p>Type:
+                    <select name="type" id="mp-assignment-type">
+                        <option value="Doctor">Doctor</option>
+                        <option value="Nurse">Nurse</option>
+                    </select></p>
+                    <input class="mainform-control" type="text" name="mp_name" placeholder="MP Name">
+                    <input type = "submit" value = "Add">
                 </form>
             </div>
             </div>
