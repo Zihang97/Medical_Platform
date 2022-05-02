@@ -1,4 +1,5 @@
 import pymysql
+import json
 
 password = "root"
 
@@ -56,3 +57,25 @@ def get_device(username, password=password):
 	db.close()
 
 	return results
+
+
+def dm_json_check(json_str):
+	measurement_dict = json.loads(json_str)
+	for item in ["patientid", "temperature", "bloodpressure", "pulse", "oximeter", "weight", "height", "glucometer"]:
+		if item not in measurement_dict:
+			raise AttributeError(f"missing {item} data")
+	cnt = 0
+	if not measurement_dict["patientid"]:
+		raise ValueError("personal id can't be empty")
+	for k, v in measurement_dict.items():
+		if k != "patientid":
+			if v:
+				cnt = 1
+			try:
+				v = float(v)
+			except:
+				raise ValueError("measurement data should be numbers")
+			if v < 0:
+				raise ValueError("measurement data should be positive")
+	if cnt == 0:
+		raise ValueError("measurement data can't be empty")
