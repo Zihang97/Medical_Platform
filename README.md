@@ -48,15 +48,15 @@ All commits of phase 5 are in branch `Phase5` (now it's merged to `main` branch 
 ## Modules
 ### Device Module
 The units for measurement fields are listed following.
-| Field  | Unit   |
-|------  |---------|
-|temperature| ℃|
-|bloodpressure|mmHg|
-|pulse| bpm|
-|oximeter| %|
-|weight| kg|
-|height| cm|
-|glucometer| mg/dL|
+| Field  | Unit   |Normal Range|
+|------  |---------|-----|
+|temperature| ℃|36.1 - 37.2|
+|bloodpressure|mmHg|<120 / <80|
+|pulse| bpm|60 - 100|
+|oximeter| %|95 - 100|
+|weight| kg||
+|height| cm||
+|glucometer| mg/dL|70 - 99|
 
 #### POST /device/create
 ##### Parameters
