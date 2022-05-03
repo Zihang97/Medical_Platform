@@ -287,9 +287,8 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 
 | Field            | Type        | Null | Key  | Default | Extra       |
 | ---------------- | ----------- | ---- | ---- | ------- | ----------- |
-| patient          | varchar(40) | NO   |      | NULL    | foreign_key |
 | doctor           | varchar(40) | NO   |      | NULL    | foreign_key |
+| patient          | varchar(40) | NO   |      | NULL    | foreign_key |
 | appointment_date | varchar(10) | NO   |      | NULL    |             |
-| start            | varchar(10) | YES  |      | NULL    |             |
-| finish           | varchar(10) | YES  |      | NULL    |             |
+| start_time           | varchar(10) | YES  |      | NULL    |             |
 | symptom          | text        | YES  |      | NULL    |             |
