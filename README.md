@@ -43,10 +43,15 @@ Messages received will be displayed at the left side of the screen while message
 This phase is completed together with teammate evezhang@bu.edu
 
 All commits of phase 5 are in branch `Phase5` (now it's merged to `main` branch but not deleted).  
-`Phase 5` builds other functionality like calendar module and voice transcriber module on the basis of `Phase 4`.
+`Phase 5` builds other functionality like calendar module and voice transcriber module on the basis of `Phase 4`. In the calendar module, patient can make an appointment with MP. Meanwhile, MP can see all the appointments from the patients.
+
+
 
 ## Modules
+<img src='Pictures/architect.PNG'>
+
 ### Device Module
+
 The units for measurement fields are listed following.
 | Field  | Unit   |Normal Range|
 |------  |---------|-----|
@@ -165,7 +170,72 @@ An array of messages
 ]
 ```
 
+
+
+### Appointment Module
+
+#### User Story
+
+As a patient, I want to make an appointment with medical providers.
+As a patient or MP, I want to see all appointments booked with whom and at what time.
+As a patient or MP, I want to get a calendar where it can show open time slots for appointments.
+
+#### Design
+
+We use the SQL database for the appointment module. Since the appointment format is normalized, the fixed column of SQL won't be a constraint. Each row is an appointment, it's convenient to query each row, and there are few join manipulation in this module. 
+
+#### POST /appointment/{username}
+
+##### Parameters
+
+```
+{	
+  "doctor": "Jack",
+  "patient": "Mandy",
+  "appointment_date": "2022-06-01",
+  "start time": "14:00:00",
+  "end time": "14:00:00"
+  "symptom": "I had a cough, and a little bit fever"
+}
+```
+
+##### Responses
+
+```
+Operation Status String (Succeed or Fail)
+```
+
+#### GET /appointment/display/{username}
+
+##### Parameters
+
+```
+username is required and already shown in the url. No need for input.
+```
+
+##### Responses
+
+An array of messages
+
+```
+[
+  {
+    "doctor": "Jack",
+    "patient": "Mandy",
+    "appointment_date": "2022-06-01",
+    "start time": "14:00:00",
+    "end time": "14:00:00"
+    "symptom": "I had a cough, and a little bit fever"
+  }
+]
+```
+
+
+
+
+
 # Database Schema
+
 <img src='Pictures/db.PNG'>
 
 ### User table
@@ -221,6 +291,6 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 | patient          | varchar(40) | NO   |      | NULL    | foreign_key |
 | doctor           | varchar(40) | NO   |      | NULL    | foreign_key |
 | appointment_date | varchar(10) | NO   |      | NULL    |             |
-| start            | text        | YES  |      | NULL    |             |
+| start            | varchar(10) | YES  |      | NULL    |             |
 | finish           | varchar(10) | YES  |      | NULL    |             |
 | symptom          | text        | YES  |      | NULL    |             |

@@ -89,7 +89,7 @@
                     <textarea id="text_message" name="text_message" rows="4" cols="50" placeholder="Message Content..." type="text" class="form-control"  style="height:200px;"  ></textarea><br>
 
                     <input class="btn btn-block btn-cta-primary" type = "submit" value = "Send">
-		        </form>
+                </form>
             </div>
             <hr>
             <div>
@@ -99,29 +99,6 @@
                     <input class="btn btn-block btn-cta-primary" type = "submit" value = "Display">
                 </form>
             </div>
-                <div>
-                <h2>Display Patients Appointments</h2>
-                <form action = "{{url_for('appointment_display', name=name)}}" method = "post">
-                <table>
-                    <tr>
-                        <th>Patient</th>
-                        <th>Appointment Date</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Symptoms</th>
-                    </tr>
-
-                    {%for appoint_dic in appointment_resutls%}
-                        <tr>
-                            <td>{{ appoint_dic['PatientName'] }}</td>
-                            <td>{{ appoint_dic['Appointment date'] }}</td>
-                            <td>{{ appoint_dic['Start time'] }}</td>
-                            <td>{{ appoint_dic['End time'] }}</td>
-                            <td>{{ appoint_dic['Symptoms'] }}</td>
-                        </tr>
-                    {%endfor%}
-                </table>
-                </form>
             </div>
             </div>
         </div>
