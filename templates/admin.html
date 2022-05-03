@@ -56,9 +56,9 @@
                     {%for user, roles in user_roles.items()%}
                         {%for role in roles%}
                             <tr>
-                                <th>{{user}}</th>
-                                <th>{{role}}</th>
-                                <th>
+                                <td>{{user}}</td>
+                                <td>{{role}}</td>
+                                <td>
                                     <form action="{{url_for('admin_update_role', name=name, username=user, ori_role=role)}}" method="post">
                                         <select name="new_role">
                                             <option value="None">None</option>
@@ -70,12 +70,12 @@
                                         </select>
                                         <input type = "submit" value = "Update">
                                     </form>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <form action="{{url_for('admin_delete_role', name=name, username=user, ori_role=role)}}" method="post">
                                         <button name="action" type="submit" value='delete'>Delete</button>
                                     </form>
-                                </th>
+                                </td>
                             </tr>
                         {%endfor%}
                     {%endfor%}
@@ -106,22 +106,22 @@
                     </tr>
                     {%for result in assign_results%}
                         <tr>
-                            <th>{{result[0]}}</th>
-                            <th>{{result[1]}}</th>
-                            <th>{{result[2]}}</th>
-                            <th>
+                            <td>{{result[0]}}</td>
+                            <td>{{result[1]}}</td>
+                            <td>{{result[2]}}</td>
+                            <td>
                                 <form action="{{url_for('admin_delete_assignment', name=name, username=result[0], type=result[1], mp_name=result[2])}}" method="post">
                                     <button name="action" type="submit" value='delete'>Delete</button>
                                 </form>
-                            </th>
+                            </td>
                         </tr>
                     {%endfor%}
                     {%for patient in patients_unassigned%}
                         <tr>
-                            <th>{{patient}}</th>
-                            <th>None</th>
-                            <th>None</th>
-                            <th></th>
+                            <td>{{patient}}</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td></td>
                         </tr>
                     {%endfor%}
                 </table>

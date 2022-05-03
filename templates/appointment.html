@@ -41,7 +41,7 @@
                 </div>
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a href="{{url_for('jump', name=name)}}">{{ name }}</a></li>
+                        <li class="nav-item"><a href="{{url_for('patient', name=name)}}">{{ name }}</a></li>
                         <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{{url_for('index')}}">Sign out</a></li>
                     </ul>
                 </div>
@@ -62,27 +62,21 @@
             <div class="form-container col-md-12">
                 {% for row in results %}
                     <div class="col-md-4">
-                        <span class="reveiver" style="color:midnightblue">Doctor: {{row[1]}}</span>
+                        <span class="reveiver" style="color:midnightblue">Doctor: {{row[0]}}</span>
                     </div>
 
                     <div class="col-md-8">
-                        <p class="reveiver" style="color:midnightblue">Patient: {{row[2]}}</p>
+                        <p class="reveiver" style="color:midnightblue">Patient: {{row[1]}}</p>
                     </div>
 
                     <div class="col-md-4">
                         <span class="reveiver" style="color:midnightblue">Appointment data: </span>
                     </div>
 
-                    <div class="col-md-4">
-                        <span class="reveiver" style="color:midnightblue">{{row[3]}}</span>
+                    <div class="col-md-8">
+                        <span class="reveiver" style="color:midnightblue">{{row[2]}} {{row[3]}}</span>
                     </div>
-
-                    <div class="col-md-4">
-                        <p class="reveiver" style="color:midnightblue">{{row[4]}}     To    {{row[5]}}</p>
-                        <br>
-                    </div>
-                    <hr>
-
+                    <hr class="col-md-12">
                 {% endfor %}
             </div>
             </div>
@@ -93,6 +87,5 @@
     </section>
 
 </div>
-<script src="js/appointment.js"></script>
 </body>
 </html>

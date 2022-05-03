@@ -13,8 +13,8 @@ def create_table(password=password):
 	sql = 'drop table if exists device'
 	cursor.execute(sql)
 
-	sql = 'create table device (username VARCHAR(40), type VARCHAR(20), measurement VARCHAR(20))'
-	# type has to be one of Temperature, BloodPressure, Pulse, Oximeter, Weight, Height, Glucometer
+	sql = 'create table device (username VARCHAR(40), type VARCHAR(40), measurement VARCHAR(20))'
+	# type has to be one of Temperature, SystolicBloodPressure, DiastolicBloodPressure, Pulse, Oximeter, Glucometer
 	cursor.execute(sql)
 
 	db.commit()
@@ -61,14 +61,14 @@ def get_device(username, password=password):
 
 def dm_json_check(json_str):
 	measurement_dict = json.loads(json_str)
-	for item in ["patientid", "temperature", "bloodpressure", "pulse", "oximeter", "weight", "height", "glucometer"]:
+	for item in ["patientname", "temperature", "systolicbloodpressure", "diastolicbloodpressure", "pulse", "oximeter", "glucometer"]:
 		if item not in measurement_dict:
 			raise AttributeError(f"missing {item} data")
 	cnt = 0
-	if not measurement_dict["patientid"]:
-		raise ValueError("personal id can't be empty")
+	if not measurement_dict["patientname"]:
+		raise ValueError("personal name can't be empty")
 	for k, v in measurement_dict.items():
-		if k != "patientid":
+		if k != "patientname":
 			if v:
 				cnt = 1
 			try:
