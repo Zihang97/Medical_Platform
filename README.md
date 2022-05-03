@@ -16,9 +16,15 @@ All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch 
 
 ### Phase 4 (Project 5)
 All commits of phase 4 are in branch `Phase4` (now it's merged to `main` branch but not deleted).  
-`Phase4` builds a web application based on restful apis developed in previous phases. It has a index page introducing the purpose of the website and links to login/signup pages. In login page, it supports using Google login so that users can use their Google accounts to log in the website. The website application also contains a main page supporting device and chat functionality, which calls restful device and chat module at the back side. I also builds a display page for users to display history messages with others.
+`Phase4` builds a web application based on modules developed in previous phases. For our web application, it has a index page introducing the purpose of the website and linking to login/signup pages. The website application also contains a main page supporting device and chat functionality, which calls restful device and chat module at the back side. I also builds a display page for users to display history messages with others.  
+Flask is used to build the application and connect back-end modules. Though restful version is also developed in previous phases, the web application call the modules directly instead of calling restful methods. That's because we put database, modules and web application at the same server, in which case directly calling backend is much faster and safer than using Python requests module to call restful interfaces. But restful interfaces are still open for others who want to use our APIs.
 
-Below are several screenshots of my website application till `Phase4`
+### Phase 5 (Final Project)
+This phase is completed together with teammate evezhang@bu.edu  
+All commits of phase 5 are in branch `Phase5` and `Phase5_eve` (now they're merged to the `main` branch but not deleted).  
+In `Phase 5` we first develop administrator system to manage users' roles and assign MP to patients. In role management module, we set the role to None, Doctor, Nurse and Patient, so instead of only one main page in `Phase4`, we builds four different main pages for four different roles. Then we supports more functionalities based on `Phase 4` including Patient's appointing, Doctor's calendar showing appointments, voice transcriber and Patient's health measurement alert. The whole system is deployed on AWS EC2. 
+
+## Website Display
 
 #### Index Page
 
@@ -39,10 +45,7 @@ Messages received will be displayed at the left side of the screen while message
 
 <img src='Pictures/display2.PNG'>
 
-### Phase 5 (Final Project)
-This phase is completed together with teammate evezhang@bu.edu
 
-All commits of phase 5 are in branch Phase5 (now it's merged to the main branch but not deleted). In`Phase 5` we add an Administrator to add and manage users to our systems. Furthermore, the Administrator can assign and change users' roles. In addition, we built three more functionalities based on `Phase 4` such as the calendar module,  voice transcriber module and alert module.
 
 
 
@@ -287,9 +290,8 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 
 | Field            | Type        | Null | Key  | Default | Extra       |
 | ---------------- | ----------- | ---- | ---- | ------- | ----------- |
-| patient          | varchar(40) | NO   |      | NULL    | foreign_key |
 | doctor           | varchar(40) | NO   |      | NULL    | foreign_key |
+| patient          | varchar(40) | NO   |      | NULL    | foreign_key |
 | appointment_date | varchar(10) | NO   |      | NULL    |             |
-| start            | varchar(10) | YES  |      | NULL    |             |
-| finish           | varchar(10) | YES  |      | NULL    |             |
+| start_time           | varchar(10) | YES  |      | NULL    |             |
 | symptom          | text        | YES  |      | NULL    |             |
