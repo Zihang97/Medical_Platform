@@ -17,7 +17,6 @@ All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch 
 ### Phase 4 (Project 5)
 All commits of phase 4 are in branch `Phase4` (now it's merged to `main` branch but not deleted).  
 `Phase4` builds a web application based on modules developed in previous phases. For our web application, it has a index page introducing the purpose of the website and linking to login/signup pages. The website application also contains a main page supporting device and chat functionality, which calls restful device and chat module at the back side. I also builds a display page for users to display history messages with others.  
-Flask is used to build the application and connect back-end modules. Though restful version is also developed in previous phases, the web application call the modules directly instead of calling restful methods. That's because we put database, modules and web application at the same server, in which case directly calling backend is much faster and safer than using Python requests module to call restful interfaces. But restful interfaces are still open for others who want to use our APIs.
 
 ### Phase 5 (Final Project)
 This phase is completed together with teammate evezhang@bu.edu  
@@ -83,15 +82,26 @@ The chat part is the same as that in patient's main page.
 #### Main Page
 You can manage users' roles and assign MP to patients here.
 
+The role for users just registered is 'None'. When you manage their roles, be sure to delete/update the original 'None' role, otherwise their mainpage will still be pages for 'None'.
+
 <img src='Pictures/admin_main1.PNG'> 
 <img src='Pictures/admin_main2.PNG'>
 
+Note: All images above are taken from website open in Chrome broswer on windows. Different systems and broswers may have different effects. 
 
+
+
+## Architecture
+The whole system deployed on AWS EC2 can be divided into three parts: front-end website, back-end modules and database. We use HTML/CSS/JS to build the website.
+
+Flask is used to build the web application and connect back-end modules. Though restful version is also developed in previous phases, the web application call the modules directly instead of calling restful methods. That's because we put database, modules and web application at the same server, in which case directly calling backend is much faster and safer than using Python requests module to call restful interfaces. But restful interfaces are still open for others who want to use our APIs.
+
+To connect the MySQL database and operate on tables, we use Python pymysql module in back-end modules.
+
+<img src='Pictures/Architect.png'>
 
 
 ## Modules
-<img src='Pictures/Architect.png'>
-
 ### Device Module
 
 The units for measurement fields are listed following.
