@@ -9,9 +9,14 @@
     <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="../static/plugins/flexslider/flexslider.css">
     <link id="theme-style" rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/calendar.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 
 <body class="features-page">
@@ -44,28 +49,109 @@
             <div class="row">
             <div class="form-container col-md-12">
             <h1>Medical Professional Main Page</h1>
-            <h3>Your Patients</h3>
+            <h2>Your Patients</h2>
             <table>
                 <tr>
                     <th>Patient</th>
-                    <th>Temperature(C)</th>
-                    <th>BloodPressure(mmHg)</th>
-                    <th>Pulse(bpm)</th>
-                    <th>Oximeter(%)</th>
-                    <th>Weight(kg)</th>
-                    <th>Height(cm)</th>
-                    <th>Glucometer(mg/dL)</th>
+                    <th>Temperature (C)</th>
+                    <th>SystolicBloodPressure (mmHg)</th>
+                    <th>DiastolicBloodPressure (mmHg)</th>
+                    <th>Pulse (bpm)</th>
+                    <th>Oximeter (%)</th>
+                    <th>Glucometer (mg/dL)</th>
                 </tr>
                 {%for patient_dic in patients_results%}
                     <tr>
                         <td>{{ patient_dic['PatientName'] }}</td>
-                        <td>{{ patient_dic['Temperature'] }}</td>
-                        <td>{{ patient_dic['BloodPressure'] }}</td>
-                        <td>{{ patient_dic['Pulse'] }}</td>
-                        <td>{{ patient_dic['Oximeter'] }}</td>
-                        <td>{{ patient_dic['Weight'] }}</td>
-                        <td>{{ patient_dic['Height'] }}</td>
-                        <td>{{ patient_dic['Glucometer'] }}</td>
+                        {% if patient_dic['Temperature'] == 'None' %}
+                            <td>{{ patient_dic['Temperature'] }}</td>
+                        {% else %}
+                            {% if 36.1 < patient_dic['Temperature'] < 37.2 %}
+                                <td>{{ patient_dic['Temperature'] }}</td>
+                            {% else %}
+                                <td style="color:red">{{ patient_dic['Temperature'] }}</td>
+                                <script>
+                                    window.onload = function() {
+                                        alert('Alert: ' + '{{ patient_dic['PatientName'] }}' + "'s health measurement results beyond normal range!");
+                                    }
+                                </script>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if patient_dic['SystolicBloodPressure'] == 'None' %}
+                            <td>{{ patient_dic['SystolicBloodPressure'] }}</td>
+                        {% else %}
+                            {% if patient_dic['SystolicBloodPressure'] < 120 %}
+                                <td>{{ patient_dic['SystolicBloodPressure'] }}</td>
+                            {% else %}
+                                <td style="color:red">{{ patient_dic['SystolicBloodPressure'] }}</td>
+                                <script>
+                                    window.onload = function() {
+                                        alert('Alert: ' + '{{ patient_dic['PatientName'] }}' + "'s health measurement results beyond normal range!");
+                                    }
+                                </script>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if patient_dic['DiastolicBloodPressure'] == 'None' %}
+                            <td>{{ patient_dic['DiastolicBloodPressure'] }}</td>
+                        {% else %}
+                            {% if patient_dic['DiastolicBloodPressure'] < 80 %}
+                                <td>{{ patient_dic['DiastolicBloodPressure'] }}</td>
+                            {% else %}
+                                <td style="color:red">{{ patient_dic['DiastolicBloodPressure'] }}</td>
+                                <script>
+                                    window.onload = function() {
+                                        alert('Alert: ' + '{{ patient_dic['PatientName'] }}' + "'s health measurement results beyond normal range!");
+                                    }
+                                </script>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if patient_dic['Pulse'] == 'None' %}
+                            <td>{{ patient_dic['Pulse'] }}</td>
+                        {% else %}
+                            {% if 60 < patient_dic['Pulse'] < 100 %}
+                                <td>{{ patient_dic['Pulse'] }}</td>
+                            {% else %}
+                                <td style="color:red">{{ patient_dic['Pulse'] }}</td>
+                                <script>
+                                    window.onload = function() {
+                                        alert('Alert: ' + '{{ patient_dic['PatientName'] }}' + "'s health measurement results beyond normal range!");
+                                    }
+                                </script>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if patient_dic['Oximeter'] == 'None' %}
+                            <td>{{ patient_dic['Oximeter'] }}</td>
+                        {% else %}
+                            {% if 95 < patient_dic['Oximeter'] < 100 %}
+                                <td>{{ patient_dic['Oximeter'] }}</td>
+                            {% else %}
+                                <td style="color:red">{{ patient_dic['Oximeter'] }}</td>
+                                <script>
+                                    window.onload = function() {
+                                        alert('Alert: ' + '{{ patient_dic['PatientName'] }}' + "'s health measurement results beyond normal range!");
+                                    }
+                                </script>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if patient_dic['Glucometer'] == 'None' %}
+                            <td>{{ patient_dic['Glucometer'] }}</td>
+                        {% else %}
+                            {% if 70 < patient_dic['Glucometer'] < 99 %}
+                                <td>{{ patient_dic['Glucometer'] }}</td>
+                            {% else %}
+                                <td style="color:red">{{ patient_dic['Glucometer'] }}</td>
+                                <script>
+                                    window.onload = function() {
+                                        alert('Alert: ' + '{{ patient_dic['PatientName'] }}' + "'s health measurement results beyond normal range!");
+                                    }
+                                </script>
+                            {% endif %}
+                        {% endif %}
                     </tr>
                 {%endfor%}
             </table>
@@ -74,8 +160,42 @@
                 <h3><a href="{{url_for('device', name=name)}}" style="background-color: #009ABB; padding: 10px; color:white">Measurement Results Upload Entrance</a></h3>
             </div>
             <hr>
+            <div class="container" style="margin:0 auto">
+            <h2>Your Calendar</h2>
+            <!-- Calendar -->
+            <div id="calendar" style="background-color:#009ABB; color: white; width: 73%; font-size:16px;"></div>
+            </div>
+            <script>
+                var mockData = [];
+                var appoints = {{ appoints|tojson }}
+                console.log({{ num }});
+                for (i = 0; i < {{ num }}; i = i + 1) {
+                    if (i%3 == 0) {
+                        mockData[i] = {
+                                        time: appoints[i][1],
+                                        cls: 'bg-orange-alt',
+                                        desc: appoints[i][0]
+                                    };
+                    } else if (i%3 == 1) {
+                        mockData[i] = {
+                                        time: appoints[i][1],
+                                        cls: 'bg-green-alt',
+                                        desc: appoints[i][0]
+                                    };
+                    } else {
+                        mockData[i] = {
+                                        time: appoints[i][1],
+                                        cls: 'bg-red-alt',
+                                        desc: appoints[i][0]
+                                    };
+                    }
+                }
+
+            </script>
+            <script type="module" src="../static/js/cal_main.js"></script>
+            <hr>
             <div>
-                <h3>Chat</h3>
+                <h2>Chat</h2>
                 <form action = "{{url_for('chat', name=name)}}" method = "post" enctype = "multipart/form-data">
                     <input class="mainform-control" type = "text" name = "recipient" placeholder="Recipient">
 
