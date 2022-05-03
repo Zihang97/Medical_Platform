@@ -42,8 +42,7 @@ Messages received will be displayed at the left side of the screen while message
 ### Phase 5 (Final Project)
 This phase is completed together with teammate evezhang@bu.edu
 
-All commits of phase 5 are in branch `Phase5` (now it's merged to `main` branch but not deleted).  
-`Phase 5` builds other functionality like calendar module and voice transcriber module on the basis of `Phase 4`. In the calendar module, patient can make an appointment with MP. Meanwhile, MP can see all the appointments from the patients.
+All commits of phase 5 are in branch Phase5 (now it's merged to the main branch but not deleted). In`Phase 5` we add an Administrator to add and manage users to our systems. Furthermore, the Administrator can assign and change users' roles. In addition, we built three more functionalities based on `Phase 4` such as the calendar module,  voice transcriber module and alert module.
 
 
 
