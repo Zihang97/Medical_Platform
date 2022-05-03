@@ -102,9 +102,6 @@ def mp(name):
 	appoints = []
 	for row in ori_appoints:
 		appoints.append([row[1], row[2]+' '+row[3]])
-	print(appoints)
-	print(str(len(appoints)))
-	print(appoints[0][1])
 	return render_template('MP.html', name = name, patients_results=patients_results, appoints=appoints, num=str(len(appoints)))
 
 
