@@ -40,6 +40,7 @@ Compared to original signup page, we ask user to enter more information like ema
 ### Pages for Patient
 #### Main Page
 In patient main page, patient can enter their device measurement data, chat with txt/voice/video and make appointments with MP.  
+Patient's doctor and nurse name will be shown on the very first line.  
 To make main page more clear, I move device data entering to a seperate page, click `Measurement Results Upload Entrance` then you can go to that page.  
 
 For chat part, the recipient you choose must be in our system. If you enter a random name, error will be reported.  
@@ -54,14 +55,36 @@ If you want to see your history appointments, you can click `Display History App
 #### Device Page
 <img src='Pictures/device.PNG'>
 
-#### Display Message Page
-Messages received will be displayed at the left side of the screen while messages sent will be displayed at the right side.  
+#### History Message Page
+Messages received will be displayed at the left side of the screen while messages sent will be displayed at the right side. Text messages will be shown in red.
+
 There is a `Transcript` button below each voice message. Click it then transcript will be shown below the button.  
 In image below I clicked the first one and you can find the effect.
 
 <img src='Pictures/display.PNG'>
 
+#### History Appointment Page
+<img src='Pictures/appointment.PNG'>
 
+### Pages for MP
+#### Main Page
+When medical professional (Doctor or Nurse) log in to their main page, if some patients' measurement data beyond the normal range, alerts will pop up. Only if they click `Confirm` then they can operate on the main page. There is only one alert for one patient, even if his multiple data beyond range, i.e. we don't set alert for each specific measurement item (We don't want the alerts to be too annoying). But the measurement item beyond range will be shown in red.
+
+MP can also access to device page to enter measurement data for any patient by clicking `Measurement Results Upload Entrance`.
+
+We also develop a calendar for MP. All appointments will be shown below the corresponding date with time and patient name. Current day will be shown with red color and underline.
+
+The chat part is the same as that in patient's main page.
+
+<img src='Pictures/mp_main1.PNG'> 
+<img src='Pictures/mp_main2.PNG'>
+
+### Pages for Admin
+#### Main Page
+You can manage users' roles and assign MP to patients here.
+
+<img src='Pictures/admin_main1.PNG'> 
+<img src='Pictures/admin_main2.PNG'>
 
 
 
