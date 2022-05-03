@@ -42,7 +42,6 @@ def get_doctor_appointment(doctor_name, password=password):
     db.close()
     return results
 
-
 def get_patient_appointment(patient_name, password=password):
     db = pymysql.connect(host="localhost", user="root", password=password, database="medical_platform")
 

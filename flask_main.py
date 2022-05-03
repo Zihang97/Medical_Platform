@@ -15,73 +15,73 @@ app = Flask(__name__)
 # this is the index page which everyone can visit. There are login and register options provided in this page
 @app.route('/', methods=['GET','POST'])
 def index():
-	return render_template('index.html')
+    return render_template('index.html')
 
 
 # register page
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-	if request.method == 'POST':
-		username = request.form['username']
-		email = request.form['email']
-		age = request.form['age']
-		gender = request.form['gender']
-		dob = request.form['dob']
-		pwd = request.form['password']
-		repwd = request.form['repassword']
-		users = user.get_users_password()
-		if not username:
-			return 'Empty Username!'
-		if not pwd:
-			return 'Empty Password!'
-		if pwd == repwd:
-			if username in users:
-				return 'User Already Exist'
-			else:
-				user.insert_user(username, pwd, email, age, gender, dob)
-				role.add_role(username, 'None')
-				return redirect(url_for('login'))
-				# user will be redirect to index page after register.
-		else:
-			return 'password should be identical to repassword'
-	return render_template('register.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        age = request.form['age']
+        gender = request.form['gender']
+        dob = request.form['dob']
+        pwd = request.form['password']
+        repwd = request.form['repassword']
+        users = user.get_users_password()
+        if not username:
+            return 'Empty Username!'
+        if not pwd:
+            return 'Empty Password!'
+        if pwd == repwd:
+            if username in users:
+                return 'User Already Exist'
+            else:
+                user.insert_user(username, pwd, email, age, gender, dob)
+                role.add_role(username, 'None')
+                return redirect(url_for('login'))
+                # user will be redirect to index page after register.
+        else:
+            return 'password should be identical to repassword'
+    return render_template('register.html')
 
 
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	if request.method == 'POST':
-		username = request.form['username']
-		pwd = request.form['password']
-		users = user.get_users_password()
-		if username in users:
-			if pwd == users[username]:
-				return redirect(url_for('jump', name=username))
-			else:
-				return render_template('login_return.html', text='Wrong Password!')
-		else:
-			return render_template('login_return.html', text='Username Not Found, please register first!')
-	return render_template('login.html')
-	# check if we have user in our list, if we do, user log in successfully.
-	# else, user either does not register or enters wrong password
+    if request.method == 'POST':
+        username = request.form['username']
+        pwd = request.form['password']
+        users = user.get_users_password()
+        if username in users:
+            if pwd == users[username]:
+                return redirect(url_for('jump', name=username))
+            else:
+                return render_template('login_return.html', text='Wrong Password!')
+        else:
+            return render_template('login_return.html', text='Username Not Found, please register first!')
+    return render_template('login.html')
+    # check if we have user in our list, if we do, user log in successfully.
+    # else, user either does not register or enters wrong password
 
 
 @app.route('/jump/<name>', methods=['GET', 'POST'])
 def jump(name):
-	user_roles = role.get_roles()
-	if 'Admin' in user_roles[name]:
-		return redirect(url_for('admin', name=name))
-	elif 'Patient' in user_roles[name]:
-		return redirect(url_for('patient', name=name))
-	else:
-		return redirect(url_for('mp', name=name))
+    user_roles = role.get_roles()
+    if 'Admin' in user_roles[name]:
+        return redirect(url_for('admin', name=name))
+    elif 'Patient' in user_roles[name]:
+        return redirect(url_for('patient', name=name))
+    else:
+        return redirect(url_for('mp', name=name))
 
 
 # this is the main page for patient logging in successfully
 @app.route('/patient/<name>', methods=['GET', 'POST'])
 def patient(name):
-	doctors, nurses = mp_assignment.get_one_assignment(name)
-	return render_template('patient.html', name=name, doctors=' '.join(doctors), nurses=' '.join(nurses))
+    doctors, nurses = mp_assignment.get_one_assignment(name)
+    return render_template('patient.html', name=name, doctors=' '.join(doctors), nurses=' '.join(nurses))
 
 
 # this is the main page for MP logging in successfully
@@ -140,74 +140,75 @@ def device(name):
 			return "Measurement data can't be empty!"
 	return render_template('device.html', name=name)
 
+
 # this is the main page for admin logging in successfully
 @app.route('/admin/<name>', methods=['GET', 'POST'])
 def admin(name):
-	if request.method == 'POST':
-		username = request.form['username']
-		new_role = request.form['new_role']
-		user_roles = role.get_roles()
-		users = user.get_users_password()
-		if username not in users:
-			return 'User Not Exist!'
-		if username in user_roles and new_role in user_roles[username]:
-			return 'Role Already Exists!'
-		role.add_role(username, new_role)
-	user_roles = role.get_roles()
-	patients = set()
-	patients_assigned = set()
-	for username, roles in user_roles.items():
-		if 'Patient' in roles:
-			patients.add(username)
-	assign_results = mp_assignment.get_all_assignments()
-	for assign_result in assign_results:
-		patients_assigned.add(assign_result[0])
-	patients_unassigned = patients - patients_assigned
-	return render_template('admin.html', name=name, user_roles=user_roles,
-						   assign_results=assign_results, patients_unassigned=patients_unassigned)
+    if request.method == 'POST':
+        username = request.form['username']
+        new_role = request.form['new_role']
+        user_roles = role.get_roles()
+        users = user.get_users_password()
+        if username not in users:
+            return 'User Not Exist!'
+        if username in user_roles and new_role in user_roles[username]:
+            return 'Role Already Exists!'
+        role.add_role(username, new_role)
+    user_roles = role.get_roles()
+    patients = set()
+    patients_assigned = set()
+    for username, roles in user_roles.items():
+        if 'Patient' in roles:
+            patients.add(username)
+    assign_results = mp_assignment.get_all_assignments()
+    for assign_result in assign_results:
+        patients_assigned.add(assign_result[0])
+    patients_unassigned = patients - patients_assigned
+    return render_template('admin.html', name=name, user_roles=user_roles,
+                           assign_results=assign_results, patients_unassigned=patients_unassigned)
 
 
 @app.route('/admin/update/<name>/<username>/<ori_role>', methods=['POST'])
 def admin_update_role(name, username, ori_role):
-	if request.method == 'POST':
-		new_role = request.form['new_role']
-		user_roles = role.get_roles()
-		if new_role in user_roles[username]:
-			return 'Role Already Exists!'
-		role.update_role(username, ori_role, new_role)
-		return redirect(url_for('admin', name=name))
+    if request.method == 'POST':
+        new_role = request.form['new_role']
+        user_roles = role.get_roles()
+        if new_role in user_roles[username]:
+            return 'Role Already Exists!'
+        role.update_role(username, ori_role, new_role)
+        return redirect(url_for('admin', name=name))
 
 
 @app.route('/admin/delete/<name>/<username>/<ori_role>', methods=['POST'])
 def admin_delete_role(name, username, ori_role):
-	if request.method == 'POST':
-		action = request.form['action']
-		if action == 'delete':
-			role.delete_role(username, ori_role)
-		return redirect(url_for('admin', name=name))
+    if request.method == 'POST':
+        action = request.form['action']
+        if action == 'delete':
+            role.delete_role(username, ori_role)
+        return redirect(url_for('admin', name=name))
 
 
 @app.route('/admin/add/<name>', methods=['POST'])
 def admin_add_assignment(name):
-	if request.method == 'POST':
-		patient_name = request.form['patient_name']
-		type = request.form['type']
-		mp_name = request.form['mp_name']
-		users = user.get_users_password()
-		if patient_name not in users:
-			return 'Patient Not Exist!'
-		if mp_name not in users:
-			return 'MP Not Exist!'
-		mp_assignment.insert_assignment(patient_name, type, mp_name)
-		return redirect(url_for('admin', name=name))
+    if request.method == 'POST':
+        patient_name = request.form['patient_name']
+        type = request.form['type']
+        mp_name = request.form['mp_name']
+        users = user.get_users_password()
+        if patient_name not in users:
+            return 'Patient Not Exist!'
+        if mp_name not in users:
+            return 'MP Not Exist!'
+        mp_assignment.insert_assignment(patient_name, type, mp_name)
+        return redirect(url_for('admin', name=name))
 
 @app.route('/admin/delete/<name>/<username>/<type>/<mp_name>', methods=['POST'])
 def admin_delete_assignment(name, username, type, mp_name):
-	if request.method == 'POST':
-		action = request.form['action']
-		if action == 'delete':
-			mp_assignment.delete_assignment(username, type, mp_name)
-		return redirect(url_for('admin', name=name))
+    if request.method == 'POST':
+        action = request.form['action']
+        if action == 'delete':
+            mp_assignment.delete_assignment(username, type, mp_name)
+        return redirect(url_for('admin', name=name))
 
 
 @app.route('/chat/<name>', methods = ['GET', 'POST'])
@@ -284,4 +285,4 @@ def appointment_display(name):
 
 
 if __name__ == '__main__':
-	app.run()
+    app.run()
