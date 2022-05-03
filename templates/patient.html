@@ -70,11 +70,38 @@
             </div>
             <hr>
             <div>
-                <h2>Display History Messages</h2>
+                <h3>Display History Messages</h3>
                 <form action = "{{url_for('chat_display', name=name)}}" method = "post">
                     <input class="mainform-control" type = "text" name = "recipient" placeholder="Recipient">
                     <input class="btn btn-block btn-cta-primary" type = "submit" value = "Display">
                 </form>
+            </div>
+            <hr>
+            <div>
+            <h2>Appointment</h2>
+            <form action = "{{url_for('make_appointment', name=name)}}" method = "post">
+                <input class="mainform-control" type = "text" name = "doctor" placeholder="Doctor or Nurse">
+                <label for="date">Date: </label>
+                <input type="text" class="form-control" id="date" name = "date" placeholder="YYYY-MM-DD"/><br>
+                <label for="start">Start time (Each appointment takes one hour): </label>
+                <select name="startime" id="start" class="form-control">
+                    <option value="10:00:00">10:00:00</option>
+                    <option value="11:00:00">11:00:00</option>
+                    <option value="12:00:00">12:00:00</option>
+                    <option value="13:00:00">13:00:00</option>
+                    <option value="14:00:00">14:00:00</option>
+                    <option value="15:00:00">15:00:00</option>
+                    <option value="16:00:00">16:00:00</option>
+                    <option value="17:00:00">17:00:00</option>
+                </select><br>
+                <label for="symptom">Brief Information: </label><br>
+                <textarea id="symptom" name="symptom" rows="4" cols="50" placeholder="Reasons to visit..." type="text" class="form-control"  style="height:200px;"  ></textarea><br>
+
+                <input class="btn btn-block btn-cta-primary" type = "submit" value = "Submit">
+            </form>
+            </div>
+            <div>
+                <h3><a href="{{url_for('appointment_display', name=name)}}" style="background-color: #009ABB; padding: 10px; color:white">Display History Appointments</a></h3>
             </div>
             </div>
             </div>

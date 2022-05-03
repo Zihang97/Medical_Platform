@@ -1,0 +1,10 @@
+#calendar {
+    min-width: 375px; 
+    position: relative;
+}
+
+.spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
