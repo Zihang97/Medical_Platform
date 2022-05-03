@@ -166,7 +166,10 @@ An array of messages
 ```
 
 # Database Schema
+<img src='Pictures/db.PNG'>
+
 ### User table
+
 In my table I set username as primary key intead of user_id (It's easier for me to deal with later design). So every user has to enter a unique username when registered, even though they may have the same names.
 | Field  | Type   |Null | Key | Default | Extra |
 |------  |---------|-----| -----| -----|-----|
@@ -210,3 +213,14 @@ In my table I set username as primary key intead of user_id (It's easier for me 
 | content | text   | YES | | NULL| |
 | status | varchar(10)   | YES | | NULL| |
 |time | datetime| YES | | NULL | |
+
+### Appointment table
+
+| Field            | Type        | Null | Key  | Default | Extra       |
+| ---------------- | ----------- | ---- | ---- | ------- | ----------- |
+| patient          | varchar(40) | NO   |      | NULL    | foreign_key |
+| doctor           | varchar(40) | NO   |      | NULL    | foreign_key |
+| appointment_date | varchar(10) | NO   |      | NULL    |             |
+| start            | text        | YES  |      | NULL    |             |
+| finish           | varchar(10) | YES  |      | NULL    |             |
+| symptom          | text        | YES  |      | NULL    |             |
