@@ -16,11 +16,12 @@ All commits of phase 3 are in branch `Phase3` (now it's merged to `main` branch 
 
 ### Phase 4 (Project 5)
 All commits of phase 4 are in branch `Phase4` (now it's merged to `main` branch but not deleted).  
-`Phase4` builds a web application based on modules developed in previous phases. Flask is used to build the application and connect back-end modules. Though restful version is also developed in previous phases, the web application call the modules directly instead of calling restful methods. That's because we put database, modules and web application at the same server, in which case directly calling backend is much faster and safer than using Python requests module to call restful interfaces. But restful interfaces are still open for others who want to use our APIs. For our web application, it has a index page introducing the purpose of the website and linking to login/signup pages. The website application also contains a main page supporting device and chat functionality, which calls restful device and chat module at the back side. I also builds a display page for users to display history messages with others.
+`Phase4` builds a web application based on modules developed in previous phases. For our web application, it has a index page introducing the purpose of the website and linking to login/signup pages. The website application also contains a main page supporting device and chat functionality, which calls restful device and chat module at the back side. I also builds a display page for users to display history messages with others.  
+Flask is used to build the application and connect back-end modules. Though restful version is also developed in previous phases, the web application call the modules directly instead of calling restful methods. That's because we put database, modules and web application at the same server, in which case directly calling backend is much faster and safer than using Python requests module to call restful interfaces. But restful interfaces are still open for others who want to use our APIs.
 
 ### Phase 5 (Final Project)
-This phase is completed together with teammate evezhang@bu.edu
-All commits of phase 5 are in branch `Phase5` and `Phase5_eve` (now they're merged to the `main` branch but not deleted). 
+This phase is completed together with teammate evezhang@bu.edu  
+All commits of phase 5 are in branch `Phase5` and `Phase5_eve` (now they're merged to the `main` branch but not deleted).  
 In `Phase 5` we first develop administrator system to manage users' roles and assign MP to patients. In role management module, we set the role to None, Doctor, Nurse and Patient, so instead of only one main page in `Phase4`, we builds four different main pages for four different roles. Then we supports more functionalities based on `Phase 4` including Patient's appointing, Doctor's calendar showing appointments, voice transcriber and Patient's health measurement alert. The whole system is deployed on AWS EC2. 
 
 ## Website Display
