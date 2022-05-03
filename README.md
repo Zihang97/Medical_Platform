@@ -25,25 +25,42 @@ All commits of phase 5 are in branch `Phase5` and `Phase5_eve` (now they're merg
 In `Phase 5` we first develop administrator system to manage users' roles and assign MP to patients. In role management module, we set the role to None, Doctor, Nurse and Patient, so instead of only one main page in `Phase4`, we builds four different main pages for four different roles. Then we supports more functionalities based on `Phase 4` including Patient's appointing, Doctor's calendar showing appointments, voice transcriber and Patient's health measurement alert. The whole system is deployed on AWS EC2. 
 
 ## Website Display
-
+### Pages before Login
 #### Index Page
-
 <img src='Pictures/index.PNG'> 
 
-#### Signup and Login Page
-<img src='Pictures/signup.PNG' width=49%> <img src='Pictures/login.PNG' width=49%>
+#### Login Page
+<img src='Pictures/login.PNG'>
 
+#### Signup Page
+Compared to original signup page, we ask user to enter more information like email, age, gender, dob besides username and password.
+
+<img src='Pictures/signup.PNG'>
+
+### Pages for Patient
 #### Main Page
-Upload large video/voice file may take some time, please be patient.
+In patient main page, patient can enter their device measurement data, chat with txt/voice/video and make appointments with MP.  
+To make main page more clear, I move device data entering to a seperate page, click `Measurement Results Upload Entrance` then you can go to that page.  
 
-<img src='Pictures/mainpage.PNG' width=49%> <img src='Pictures/mainpage2.PNG' width=49%>
+For chat part, the recipient you choose must be in our system. If you enter a random name, error will be reported.  
+Note: Upload large video/voice file may take some time. Displaying history messages may also take some time to load our transcriber, please be patient.
+
+For appointment part, note that you must follow the date entering format shown in placeholder. If you don't follow the format error will be reported. Each appointment is one hour fixed so we only set start time. Start time is a choosing box only providing options from 10:00:00 to 17:00:00, considering common work time.  
+If you want to see your history appointments, you can click `Display History Appointments`
+
+<img src='Pictures/patient_main1.PNG'> 
+<img src='Pictures/patient_main2.PNG'>
+
+#### Device Page
+<img src='Pictures/device.PNG'>
 
 #### Display Message Page
-Messages received will be displayed at the left side of the screen while messages sent will be displayed at the right side.
+Messages received will be displayed at the left side of the screen while messages sent will be displayed at the right side.  
+There is a `Transcript` button below each voice message. Click it then transcript will be shown below the button.  
+In image below I clicked the first one and you can find the effect.
 
 <img src='Pictures/display.PNG'>
 
-<img src='Pictures/display2.PNG'>
 
 
 
