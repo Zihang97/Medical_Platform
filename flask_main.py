@@ -5,6 +5,8 @@ import Modules.chat_module as chat_module
 import Modules.user as user
 import Modules.role as role
 import Modules.mp_assignment as mp_assignment
+import Modules.transcript_module as transcript_module
+import Modules.calendar_module as calendar_module
 
 
 app = Flask(__name__)
@@ -89,15 +91,21 @@ def mp(name):
 	patients_results = []
 	for patient in patients:
 		temp_dic = {'PatientName': patient, 'Temperature': 'None',
-					'BloodPressure': 'None', 'Pulse': 'None',
-					'Oximeter': 'None', 'Weight': 'None',
-					'Height': 'None', 'Glucometer': 'None'}
+					'SystolicBloodPressure': 'None', 'DiastolicBloodPressure': 'None',
+					'Pulse': 'None', 'Oximeter': 'None', 'Glucometer': 'None'}
 		results = device_module.get_device(patient)
 		for result in results:
-			temp_dic[result[1]] = result[2]
+			temp_dic[result[1]] = float(result[2])
 		patients_results.append(temp_dic)
 
-	return render_template('MP.html', name = name, patients_results=patients_results)
+	ori_appoints = calendar_module.get_doctor_appointment(name)
+	appoints = []
+	for row in ori_appoints:
+		appoints.append([row[1], row[2]+' '+row[3]])
+	print(appoints)
+	print(str(len(appoints)))
+	print(appoints[0][1])
+	return render_template('MP.html', name = name, patients_results=patients_results, appoints=appoints, num=str(len(appoints)))
 
 
 # this is the main page for MP logging in successfully
@@ -106,15 +114,14 @@ def device(name):
 	if request.method == 'POST':
 		patientname = request.form['patientname']
 		temperature = request.form['temperature']
-		bloodpressure = request.form['bloodpressure']
+		systolicbloodpressure = request.form['systolicbloodpressure']
+		diastolicbloodpressure = request.form['diastolicbloodpressure']
 		pulse = request.form['pulse']
 		oximeter = request.form['oximeter']
-		weight = request.form['weight']
-		height = request.form['height']
 		glucometer= request.form['glucometer']
-		device_dict = {'Temperature': temperature, 'BloodPressure': bloodpressure,
-					   'Pulse': pulse, 'Oximeter': oximeter, 'Weight': weight,
-						'Height': height, 'Glucometer': glucometer}
+		device_dict = {'Temperature': temperature, 'SystolicBloodPressure':systolicbloodpressure,
+					   'DiastolicBloodPressure': diastolicbloodpressure, 'Pulse': pulse,
+					   'Oximeter': oximeter, 'Glucometer': glucometer}
 		cnt = 0
 		if not patientname:
 			return "Patient name can't be empty!"
@@ -227,7 +234,7 @@ def chat(name):
 			chat_module.store_message(name, recipient, 'TEXT', text_message, current_time)
 		if not (text_message or video or voice):
 			return "Message can't be empty!"
-	return redirect(url_for('main', name = name))
+	return redirect(url_for('jump', name = name))
 
 
 @app.route('/chat/display/<name>', methods=['GET', 'POST'])
@@ -235,7 +242,45 @@ def chat_display(name):
 	if request.method == 'POST':
 		recipient = request.form['recipient']
 		results = chat_module.get_messages(name, recipient)
-		return render_template('display.html', name=name, results=results)
+		chats = []
+		for result in results:
+			chat = list(result)
+			if result[2] == 'VOICE':
+				temp_text = transcript_module.translator(result[3][6:])
+				chat.append(temp_text)
+			chats.append(chat)
+		return render_template('display.html', name=name, results=chats)
+
+
+@app.route('/appointment/<name>', methods = ['GET', 'POST'])
+def make_appointment(name):
+	if request.method == 'POST':
+		doctor = request.form['doctor']
+		date = request.form['date']
+		if date[4] != '-' or date[7] != '-':
+			return 'Please follow date format!'
+		date_list = date.split('-')
+		try:
+			year = int(date_list[0])
+			month = int(date_list[1])
+			day = int(date_list[2])
+		except:
+			return 'Please follow date format!'
+
+		startime = request.form['startime']
+		symptom = request.form['symptom']
+		existing_appoints = calendar_module.get_doctor_appointment(doctor)
+		for appoint in existing_appoints:
+			if appoint[2] == date and appoint[3] == startime:
+				return 'This time slot not available!'
+		calendar_module.insert_appointment(doctor, name, date, startime, symptom)
+	return redirect(url_for('patient', name=name))
+
+
+@app.route('/appointment/display/<name>', methods = ['GET', 'POST'])
+def appointment_display(name):
+	results = calendar_module.get_patient_appointment(name)
+	return render_template('appointment.html', name=name, results=results)
 
 
 if __name__ == '__main__':

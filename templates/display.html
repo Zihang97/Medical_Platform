@@ -69,6 +69,11 @@
                             <video class="sent" src="{{row[3]}}" controls width=50%></video>
                         {% else %}
                             <audio class="sent" src="{{row[3]}}" controls></audio>
+                            <div class="sent">
+                                <button onclick="translator('{{ row[4] }}', '{{ row[-1] }}')">Transcript</button>
+                            </div>
+                            <p class="sent" id="{{ row[4] }}"></p>
+
                         {% endif %}
                     {% else %}
                         <p class="received">{{row[4]}}</p>
@@ -78,6 +83,10 @@
                             <video class="received" src="{{row[3]}}" controls width=50%></video>
                         {% else %}
                             <audio class="received" src="{{row[3]}}" controls></audio>
+                            <div class="received">
+                                <button onclick="translator('{{ row[4] }}', '{{ row[-1] }}')">Transcript</button>
+                            </div>
+                            <p class="received" id="{{ row[4] }}"></p>
                         {% endif %}
                     {% endif %}
                     <hr>
@@ -85,6 +94,11 @@
             </div>
             </div>
         </div>
+    <script>
+        function translator(id, text) {
+            document.getElementById(id).innerHTML = text
+        }
+    </script>
     </div>
     </div>
     </div>
