@@ -21,7 +21,7 @@ All commits of phase 4 are in branch `Phase4` (now it's merged to `main` branch 
 ### Phase 5 (Final Project)
 This phase is completed together with teammate evezhang@bu.edu.  
 All commits of phase 5 are in branch `Phase5` and `Phase5_eve` (now they're merged to the `main` branch but not deleted).  
-In `Phase 5` we first develop administrator system to manage users' roles and assign MP to patients. In role management module, we set the role to None, Doctor, Nurse and Patient, so instead of only one main page in `Phase4`, we builds four different main pages for four different roles. Then we supports more functionalities based on `Phase 4` including Patient's appointing, Doctor's calendar showing appointments, voice transcriber and Patient's health measurement alert. The whole system is deployed on AWS EC2.
+In `Phase 5` we first develop administrator system to manage users' roles and assign MP to patients. In role management module, we set the role to None, Doctor, Nurse and Patient, so instead of only one main page in `Phase4`, we builds four different main pages for four different roles. Then we supports more functionalities based on `Phase 4` including Patient's appointing, Doctor's calendar showing appointments, voice transcriber and Patient's health measurement alert. The whole system is deployed on AWS EC2.  
 The website url is [3.19.55.177:5000](http://3.19.55.177:5000) (Currently it's closed to avoid unnecessary charge, if you want to check it please contact us at jzh15@bu.edu or evezhang@bu.edu)
 
 ## Website Display
