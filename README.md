@@ -47,7 +47,7 @@ All commits of phase 5 are in branch Phase5 (now it's merged to the main branch 
 
 
 ## Modules
-<img src='Pictures/architect.PNG'>
+<img src='Pictures/Architect.png'>
 
 ### Device Module
 
@@ -235,7 +235,7 @@ An array of messages
 
 # Database Schema
 
-<img src='Pictures/db.PNG'>
+<img src='Pictures/db.png'>
 
 ### User table
 
