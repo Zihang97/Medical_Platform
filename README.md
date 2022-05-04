@@ -121,7 +121,7 @@ The units for measurement fields are listed following.
 |oximeter| %|95 - 100|
 |glucometer| mg/dL|70 - 99|
 
-#### POST /device/create
+#### POST /device
 ##### Parameters
 ```
 {
@@ -146,10 +146,12 @@ Note: If the patient already had measurement data in database, the old one will 
 Operation Status String (Succeed or Fail)
 ```
 
-#### GET /device/{username}
+#### GET /device
 ##### Parameters
 ```
-username is required and already shown in the url. No need for input.
+{
+  username='Jack'
+}
 ```
 ##### Responses
 ```
@@ -175,7 +177,7 @@ As a patient or MP, I want to check the history of chats and corresponding sendi
 #### Design
 I decide to use SQL database for chat module. Though columns in SQL are fixed compared to fields in document database, I'll use `TEXT` type to store messages. `TEXT` type can store anything entered as a string with no limit on length of string. Another reason for using SQL is that all other modules use SQL and user infomation are also stored in SQL database. It'll be quite complex to communicate between SQL and document if only chat module use document database.
 
-#### POST /chat/create
+#### POST /chat
 ##### Parameters
 ```
 {
@@ -192,10 +194,12 @@ I decide to use SQL database for chat module. Though columns in SQL are fixed co
 Operation Status String (Succeed or Fail)
 ```
 
-#### GET /chat/{username}
+#### GET /chat
 ##### Parameters
 ```
-username is required and already shown in the url. No need for input.
+{
+  username='Jack'
+}
 ```
 ##### Responses
 An array of messages
@@ -225,7 +229,7 @@ As a MP, I want to get a calendar where it can show open time slots for appointm
 
 We use the SQL database for the appointment module. Since the appointment format is normalized, the fixed column of SQL won't be a constraint. Each row is an appointment, it's convenient to query each row, and there are few join manipulation in this module. 
 
-#### POST /appointment/create
+#### POST /appointment
 
 ##### Parameters
 
@@ -245,12 +249,14 @@ We use the SQL database for the appointment module. Since the appointment format
 Operation Status String (Succeed or Fail)
 ```
 
-#### GET /appointment/{username}
+#### GET /appointment
 
 ##### Parameters
 
 ```
-username is required and already shown in the url. No need for input.
+{
+  username='Jack'
+}
 ```
 
 ##### Responses
