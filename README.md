@@ -150,7 +150,7 @@ Operation Status String (Succeed or Fail)
 ##### Parameters
 ```
 {
-  username='Jack'
+  'patientname'='Jack'
 }
 ```
 ##### Responses
