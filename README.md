@@ -126,12 +126,12 @@ The units for measurement fields are listed following.
 ```
 {
   "patientname": "Jack",
-  "temperature": "36.5",
-  "systolicbloodpressure": "110",
-  "diastolicbloodpressure": "70",
-  "pulse": "95",
-  "oximeter": "98",
-  "glucometer": "82"
+  "Temperature": "36.5",
+  "SystolicBloodPressure": "110",
+  "DiastolicBloodPressure": "70",
+  "Pulse": "95",
+  "Oximeter": "98",
+  "Glucometer": "82"
 }
 ```
 
@@ -157,12 +157,12 @@ Operation Status String (Succeed or Fail)
 ```
 {
   "patientname": "Jack",
-  "temperature": "36.5",
-  "systolicbloodpressure": "110",
-  "diastolicbloodpressure": "70",
-  "pulse": "95",
-  "oximeter": "98",
-  "glucometer": "82"
+  "Temperature": "36.5",
+  "SystolicBloodPressure": "110",
+  "DiastolicBloodPressure": "70",
+  "Pulse": "95",
+  "Oximeter": "98",
+  "Glucometer": "82"
 }
 ```
 
