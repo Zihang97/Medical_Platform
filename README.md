@@ -179,13 +179,14 @@ I decide to use SQL database for chat module. Though columns in SQL are fixed co
 
 #### POST /chat
 ##### Parameters
+You don't need to enter time as system will set for you.
+
 ```
 {
   "sender": "Jack",
   "recipient": "Mandy",
   "type": "TEXT/VIDEO/VOICE",
   "message": "<message_string>/<file_address>"
-  "time": "current_time"
 }
 ```
 
@@ -217,68 +218,7 @@ An array of messages
 ```
 
 
-
-### Appointment Module
-
-#### User Story
-
-As a patient, I want to make an appointment with medical providers.
-As a patient or MP, I want to see all appointments booked with whom and at what time.
-As a MP, I want to get a calendar where it can show open time slots for appointments.
-
-#### Design
-
-We use the SQL database for the appointment module. Since the appointment format is normalized, the fixed column of SQL won't be a constraint. Each row is an appointment, it's convenient to query each row, and there are few join manipulation in this module. 
-
-#### POST /appointment
-
-##### Parameters
-
-```
-{	
-  "doctor": "Jack",
-  "patient": "Mandy",
-  "appointment_date": "2022-06-01",
-  "start time": "14:00:00",
-  "symptom": "I had a cough, and a little bit fever"
-}
-```
-
-##### Responses
-
-```
-Operation Status String (Succeed or Fail)
-```
-
-#### GET /appointment
-
-##### Parameters
-
-```
-{
-  username='Jack'
-}
-```
-
-##### Responses
-
-An array of messages
-
-```
-[
-  {
-    "doctor": "Jack",
-    "patient": "Mandy",
-    "appointment_date": "2022-06-01",
-    "start time": "14:00:00",
-    "symptom": "I had a cough, and a little bit fever"
-  }
-]
-```
-
-
-
-# Database Schema
+## Database Schema
 
 <img src='Pictures/db.png'>
 
