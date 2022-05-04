@@ -73,8 +73,16 @@ def jump(name):
         return redirect(url_for('admin', name=name))
     elif 'Patient' in user_roles[name]:
         return redirect(url_for('patient', name=name))
+    elif 'None' in user_roles[name]:
+        return redirect(url_for('none', name=name))
     else:
         return redirect(url_for('mp', name=name))
+
+
+# this is the main page for new user logging in successfully
+@app.route('/none/<name>', methods=['GET', 'POST'])
+def none(name):
+    return render_template('none.html', name=name)
 
 
 # this is the main page for patient logging in successfully
@@ -87,55 +95,55 @@ def patient(name):
 # this is the main page for MP logging in successfully
 @app.route('/MP/<name>', methods=['GET', 'POST'])
 def mp(name):
-	patients = mp_assignment.get_patients(name)
-	patients_results = []
-	for patient in patients:
-		temp_dic = {'PatientName': patient, 'Temperature': 'None',
-					'SystolicBloodPressure': 'None', 'DiastolicBloodPressure': 'None',
-					'Pulse': 'None', 'Oximeter': 'None', 'Glucometer': 'None'}
-		results = device_module.get_device(patient)
-		for result in results:
-			temp_dic[result[1]] = float(result[2])
-		patients_results.append(temp_dic)
+    patients = mp_assignment.get_patients(name)
+    patients_results = []
+    for patient in patients:
+        temp_dic = {'PatientName': patient, 'Temperature': 'None',
+                    'SystolicBloodPressure': 'None', 'DiastolicBloodPressure': 'None',
+                    'Pulse': 'None', 'Oximeter': 'None', 'Glucometer': 'None'}
+        results = device_module.get_device(patient)
+        for result in results:
+            temp_dic[result[1]] = float(result[2])
+        patients_results.append(temp_dic)
 
-	ori_appoints = calendar_module.get_doctor_appointment(name)
-	appoints = []
-	for row in ori_appoints:
-		appoints.append([row[1], row[2]+' '+row[3]])
-	return render_template('MP.html', name = name, patients_results=patients_results, appoints=appoints, num=str(len(appoints)))
+    ori_appoints = calendar_module.get_doctor_appointment(name)
+    appoints = []
+    for row in ori_appoints:
+        appoints.append([row[1], row[2]+' '+row[3]])
+    return render_template('MP.html', name = name, patients_results=patients_results, appoints=appoints, num=str(len(appoints)))
 
 
 # this is the main page for MP logging in successfully
 @app.route('/device/<name>', methods=['GET', 'POST'])
 def device(name):
-	if request.method == 'POST':
-		patientname = request.form['patientname']
-		temperature = request.form['temperature']
-		systolicbloodpressure = request.form['systolicbloodpressure']
-		diastolicbloodpressure = request.form['diastolicbloodpressure']
-		pulse = request.form['pulse']
-		oximeter = request.form['oximeter']
-		glucometer= request.form['glucometer']
-		device_dict = {'Temperature': temperature, 'SystolicBloodPressure':systolicbloodpressure,
-					   'DiastolicBloodPressure': diastolicbloodpressure, 'Pulse': pulse,
-					   'Oximeter': oximeter, 'Glucometer': glucometer}
-		cnt = 0
-		if not patientname:
-			return "Patient name can't be empty!"
-		for type, measurement in device_dict.items():
-			if measurement:
-				cnt = 1
-				try:
-					temp = float(measurement)
-				except:
-					return "Measurement data should be numbers!"
-				if temp < 0:
-					return "Measurement data should be positive!"
-				device_module.delete_device(patientname, type)
-				device_module.insert_device(patientname, type, measurement)
-		if cnt == 0:
-			return "Measurement data can't be empty!"
-	return render_template('device.html', name=name)
+    if request.method == 'POST':
+        patientname = request.form['patientname']
+        temperature = request.form['temperature']
+        systolicbloodpressure = request.form['systolicbloodpressure']
+        diastolicbloodpressure = request.form['diastolicbloodpressure']
+        pulse = request.form['pulse']
+        oximeter = request.form['oximeter']
+        glucometer= request.form['glucometer']
+        device_dict = {'Temperature': temperature, 'SystolicBloodPressure':systolicbloodpressure,
+                       'DiastolicBloodPressure': diastolicbloodpressure, 'Pulse': pulse,
+                       'Oximeter': oximeter, 'Glucometer': glucometer}
+        cnt = 0
+        if not patientname:
+            return "Patient name can't be empty!"
+        for type, measurement in device_dict.items():
+            if measurement:
+                cnt = 1
+                try:
+                    temp = float(measurement)
+                except:
+                    return "Measurement data should be numbers!"
+                if temp < 0:
+                    return "Measurement data should be positive!"
+                device_module.delete_device(patientname, type)
+                device_module.insert_device(patientname, type, measurement)
+        if cnt == 0:
+            return "Measurement data can't be empty!"
+    return render_template('device.html', name=name)
 
 
 # this is the main page for admin logging in successfully

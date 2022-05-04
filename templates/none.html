@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>New User Main Page</title>
+
+    <link rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/plugins/flexslider/flexslider.css">
+    <link id="theme-style" rel="stylesheet" href="../static/css/styles.css">
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+</head>
+
+<body class="features-page">
+<div class="upper-wrapper">
+    <header id="header" class="header navbar-fixed-top">
+        <div class="container">
+            <h1 class="logo">
+                <a href="{{url_for('index')}}"><span class="logo-icon"></span><span class="text">MEDICAL PLATFORM</span></a>
+            </h1>
+            <nav class="main-nav navbar-right" role="navigation">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a href="{{url_for('none', name=name)}}">{{ name }}</a></li>
+                        <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{{url_for('index')}}">Sign out</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="bg-slider-wrapper">
+    </div>
+
+
+    <section class="login-section access-section section">
+    <div class="container">
+    <div class="row">
+    <div class="form-box col-md-offset-1 col-md-10">
+        <div class="form-box-inner">
+            <div class="row">
+            <div class="form-container col-md-12">
+            <h1>New User Main Page</h1>
+            <h2 style="text-align: center">Currently you don't have any role. Please contact administrator!</h2>
+            <div>
+                <h2>Chat</h2>
+                <form action = "{{url_for('chat', name=name)}}" method = "post" enctype = "multipart/form-data">
+                    <input class="mainform-control" type = "text" name = "recipient" placeholder="Recipient">
+
+                    <label for="video">Video Message: </label>
+                    <input type = "file" id="video" name = "video" /><br>
+
+                    <label for="voice">Voice Message: </label>
+                    <input type = "file" id="voice" name = "voice" /><br>
+
+                    <label for="text_message">Text Message: </label><br>
+                    <textarea id="text_message" name="text_message" rows="4" cols="50" placeholder="Message Content..." type="text" class="form-control"  style="height:200px;"  ></textarea><br>
+
+                    <input class="btn btn-block btn-cta-primary" type = "submit" value = "Send">
+                </form>
+            </div>
+            <hr>
+            <div>
+                <h3>Display History Messages</h3>
+                <form action = "{{url_for('chat_display', name=name)}}" method = "post">
+                    <input class="mainform-control" type = "text" name = "recipient" placeholder="Recipient">
+                    <input class="btn btn-block btn-cta-primary" type = "submit" value = "Display">
+                </form>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+</div>
+
+</body>
+</html>
