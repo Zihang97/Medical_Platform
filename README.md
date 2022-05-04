@@ -198,7 +198,8 @@ Operation Status String (Succeed or Fail)
 ##### Parameters
 ```
 {
-  username='Jack'
+  'username1'='Jack',
+  'username2'='Mandy'
 }
 ```
 ##### Responses
