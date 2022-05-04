@@ -125,38 +125,21 @@ The units for measurement fields are listed following.
 ##### Parameters
 ```
 {
-  "username": "Jack",
-  "temperature": "36",
-  "bloodpressure": "70/110",
-  "pulse": "100",
-  "oximeter": "90",
-  "weight": "65",
-  "height": "175",
-  "glucometer": "100"
+  "patientname": "Jack",
+  "temperature": "36.5",
+  "systolicbloodpressure": "110",
+  "diastolicbloodpressure": "70",
+  "pulse": "95",
+  "oximeter": "98",
+  "glucometer": "82"
 }
 ```
 
 All fields are required. If any field is missing there will an error reported.
 
 `username` is also required because not only patient can enter measurement results, but also MP can input data for them.
-##### Responses
-```
-Operation Status String (Succeed or Fail)
-```
-#### PUT /device/update
-##### Parameters
-```
-{
-  "username": "Jack",
-  "temperature": "36",
-  "bloodpressure": "70/110",
-  "pulse": "100",
-  "oximeter": "90",
-  "weight": "65",
-  "height": "175",
-  "glucometer": "100"
-}
-```
+
+Note: If the patient already had measurement data in database, the old one will be replaced by the new one. (So this interface is like the combination of updating and creating)
 
 ##### Responses
 ```
@@ -171,14 +154,13 @@ username is required and already shown in the url. No need for input.
 ##### Responses
 ```
 {
-  "username": "Jack",
-  "temperature": "36",
-  "bloodpressure": "70/110",
-  "pulse": "100",
-  "oximeter": "90",
-  "weight": "65",
-  "height": "175",
-  "glucometer": "100"
+  "patientname": "Jack",
+  "temperature": "36.5",
+  "systolicbloodpressure": "110",
+  "diastolicbloodpressure": "70",
+  "pulse": "95",
+  "oximeter": "98",
+  "glucometer": "82"
 }
 ```
 
@@ -237,13 +219,13 @@ An array of messages
 
 As a patient, I want to make an appointment with medical providers.
 As a patient or MP, I want to see all appointments booked with whom and at what time.
-As a patient or MP, I want to get a calendar where it can show open time slots for appointments.
+As a MP, I want to get a calendar where it can show open time slots for appointments.
 
 #### Design
 
 We use the SQL database for the appointment module. Since the appointment format is normalized, the fixed column of SQL won't be a constraint. Each row is an appointment, it's convenient to query each row, and there are few join manipulation in this module. 
 
-#### POST /appointment/{username}
+#### POST /appointment/create
 
 ##### Parameters
 
@@ -253,7 +235,6 @@ We use the SQL database for the appointment module. Since the appointment format
   "patient": "Mandy",
   "appointment_date": "2022-06-01",
   "start time": "14:00:00",
-  "end time": "14:00:00"
   "symptom": "I had a cough, and a little bit fever"
 }
 ```
@@ -264,7 +245,7 @@ We use the SQL database for the appointment module. Since the appointment format
 Operation Status String (Succeed or Fail)
 ```
 
-#### GET /appointment/display/{username}
+#### GET /appointment/{username}
 
 ##### Parameters
 
@@ -283,13 +264,10 @@ An array of messages
     "patient": "Mandy",
     "appointment_date": "2022-06-01",
     "start time": "14:00:00",
-    "end time": "14:00:00"
     "symptom": "I had a cough, and a little bit fever"
   }
 ]
 ```
-
-
 
 
 
