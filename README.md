@@ -37,6 +37,12 @@ Compared to original signup page, we ask user to enter more information like ema
 
 <img src='Pictures/signup.PNG'>
 
+### Pages for New User
+#### Main Page
+If you are a new user without any role, you can only use chat functionality.
+
+<img src='Pictures/none_main.PNG'> 
+
 ### Pages for Patient
 #### Main Page
 In patient main page, patient can enter their device measurement data, chat with txt/voice/video and make appointments with MP.  
